@@ -29,10 +29,10 @@ const Date = ({ date, onSelectDate, selected }) => {
       <Text
         style={[
           styles.medium,
-          selected === fullDate && { color: "#fff", fontWeight: 'bold', fontSize: responsiveFontSize(2.8)},
+          selected === fullDate && { color: "#fff", fontSize: responsiveFontSize(2.5)},
           day=='Sun'&&{color:'red'}
         ]}
-      >
+      > 
         {dayNumber}
       </Text>
     </TouchableOpacity>
@@ -43,12 +43,9 @@ export default Date
 
 const styles = StyleSheet.create({
   card: {
-    // backgroundColor: 'white',
-    // borderRadius: 20,
     borderColor: '#ddd',
     padding: 10,
     borderWidth:2,
-    // marginVertical: 2,
     alignItems: 'center',
     height: responsiveHeight(10),
     width: responsiveWidth(15),
@@ -56,15 +53,12 @@ const styles = StyleSheet.create({
   },
   big: {
     fontFamily:'Poppins-Regular',
-
     fontSize: responsiveFontSize(1.7),
     color:'black',
-
   },
   medium: {
-    fontSize: responsiveFontSize(2.2),
+    fontSize: responsiveFontSize(2.5),
     color:'black',
     fontFamily:'Poppins-Regular',
-
   },
 })
