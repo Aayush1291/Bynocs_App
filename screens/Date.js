@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   big: {
-    // fontWeight: 'bold',
     fontFamily:'Poppins-Regular',
 
     fontSize: responsiveFontSize(1.7),
