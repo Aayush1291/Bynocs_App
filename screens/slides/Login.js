@@ -65,10 +65,15 @@ const Login = ({ navigation }) => {
           await AsyncStorage.setItem('loggedIn', 'true');
           await AsyncStorage.setItem('UserName', user.username);
           await AsyncStorage.setItem('Email', email);
+          await AsyncStorage.setItem('role',user.role)
           console.log(user.username);
+          console.log(user.role);
           setTimeout(() => {
             setIsLoading(false);
+            if(user.role!=1)
             navigation.replace('BottomNavTabs');
+            else
+            navigation.replace('FirstPage')
           }, 1000);
         } else {
           Alert.alert('Error', 'Invalid password!');
@@ -93,13 +98,17 @@ const Login = ({ navigation }) => {
   const checkLoginStatus = async () => {
     try {
       const isLoggedIn = await AsyncStorage.getItem('loggedIn');
-      if (isLoggedIn === 'true') {
+      const role = await AsyncStorage.getItem('role');
+  
+      if (isLoggedIn === 'true' && role === '1') {
+        navigation.replace('ServiceHome');
+      } else if (isLoggedIn === 'true') {
         navigation.replace('BottomNavTabs');
       }
     } catch (error) {
       console.log('Error:', error);
     }
-  };
+  }
 
   return (
     <View>

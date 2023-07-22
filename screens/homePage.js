@@ -21,6 +21,7 @@ const Home = ({navigation}) => {
   const [appointments, setAppointments] = useState([]);
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
+  const[role,setRole]=useState('')
 
   {
     /*function monthIndexToMonth(date){
@@ -47,6 +48,7 @@ var sec = new Date().getSeconds();*/
   useEffect(() => {
     fetchData();
     retrieveUserName();
+    retrieveRole();
     fetchAppointments();
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
@@ -54,10 +56,7 @@ var sec = new Date().getSeconds();*/
       BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
     };
   }, []);
-  async function Logout() {
-    await AsyncStorage.clear();
-    navigation.navigate('MainEntry');
-  }
+
 
   const retrieveUserName = async () => {
     try {
@@ -68,6 +67,17 @@ var sec = new Date().getSeconds();*/
       }
     } catch (error) {
       console.error('Error retrieving userName from AsyncStorage:', error);
+    }
+  };
+  const retrieveRole = async () => {
+    try {
+      const storedRole = await AsyncStorage.getItem('role');
+      console.log(storedRole);
+      if (storedRole) {
+        setRole(storedRole);
+      }
+    } catch (error) {
+      console.error('Error retrieving role from AsyncStorage:', error);
     }
   };
   const handleBackPress = () => {
@@ -140,7 +150,7 @@ var sec = new Date().getSeconds();*/
             marginTop: responsiveHeight(1.8),
             marginLeft: responsiveWidth(35),
           }}>
-          <TouchableOpacity onPress={Logout}>
+          <TouchableOpacity onPress={()=>{navigation.navigate('My Profile')}}>
             <Icon name="person-circle" color={'#9E9E9E'} size={70} />
           </TouchableOpacity>
         </View>
@@ -318,7 +328,7 @@ var sec = new Date().getSeconds();*/
         )}
       </View>
 
-      <View
+      {role!=1&&role!=2&&(<View
         style={{
           flexDirection: 'row',
           marginTop:responsiveHeight(7),
@@ -397,7 +407,7 @@ var sec = new Date().getSeconds();*/
           >Activity 3</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </View>)}
       {/*} <View style={{margin: 20}}>
           <Text style={{fontSize: 30, fontWeight: 'bold', color: 'black'}}>
             Welcome Back,

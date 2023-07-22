@@ -4,7 +4,7 @@ import { responsiveWidth, responsiveHeight, responsiveFontSize } from 'react-nat
 import moment from 'moment'
 import Date from './Date'
 
-const Calendar = ({ onSelectDate, selected }) => {
+const Calendar = ({ onSelectDate, selected, onSelectDay, selectedDay }) => {
   const [dates, setDates] = useState([])
   const [scrollPosition, setScrollPosition] = useState(0)
   const [currentMonth, setCurrentMonth] = useState()
@@ -58,6 +58,8 @@ const Calendar = ({ onSelectDate, selected }) => {
                 date={date}
                 onSelectDate={onSelectDate}
                 selected={selected}
+                onSelectDay={onSelectDay}
+                selectedDay={selectedDay}
               />
             ))}
           </ScrollView>
