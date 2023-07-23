@@ -12,12 +12,12 @@ navigation.replace('Main')
     
       <Button
         title="Visiting Time"
-        onPress={() => navigation.replace('SecondPage')}
+        onPress={() => navigation.navigate('SecondPage')}
       />
 
 <Button 
         title="Time off"
-        onPress={() => navigation.replace('ThirdPage')}
+        onPress={() => navigation.navigate('ThirdPage')}
        
       />
       <Button 

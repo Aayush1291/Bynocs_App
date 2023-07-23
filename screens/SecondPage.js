@@ -30,7 +30,7 @@ const SecondPage = () => {
   }, []);
 
   const dele = async (id) => {
-    const url = "https://retoolapi.dev/D3HKGH/data";
+    const url = "https://retoolapi.dev/0roSS2/data";
     try {
       let result = await fetch(`${url}/${id}`, {
         method: "delete",

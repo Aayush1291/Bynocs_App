@@ -19,7 +19,9 @@ import moment, { duration } from 'moment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Calendar from './Calendar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import PushNotification from 'react-native-push-notification'
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import messaging from '@react-native-firebase/messaging'
 const generateTimeSlots = (startTime, endTime, duration) => {
   const slots = [];
   const format = 'h:mm A';
@@ -51,31 +53,24 @@ const Book_Appointment = () => {
   let [timeSlotDuration, setTimeSlotDuration] = useState(60);
 
   // const [selectedTime, onSelectTime] = useState('');
-  const [selectedTime, setSelectedTime] = useState(null);
   const [morning, setMorning] = useState(false);
   const [day, setDay] = useState(false);
   const [night, setNight] = useState(false);
-
-  const [morningData, setMorningData] = useState([]);
-  const [dayData, setDayData] = useState([]);
-  const [nightData, setNightData] = useState([]);
 
   const [roleData, setroleData] = useState('');
   const [roles, setroles] = useState(false);
 
   const [data, setData] = useState([]);
   const [serviceName, setServiceName] = useState(null);
-  const [showDuration, setShowDuration] = useState(false);
-  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [selectedStartSlot, setselectedStartSlot] = useState(null);
+  const [selectedEndSlot, setselectedEndSlot] = useState(null);
   const [categoryData, setCategoryData] = useState([]);
-  const [selectedCategory, onSelectCategory] = useState([]);
   const [selectedDate, setDate] = useState('');
   const [selectDay, setselectDay] = useState('');
-  let day1;
 
-  const [morningSlots,setmorningSlots ]  = useState([]);
-  const [afternoonSlots,setafternoonSlots ]  = useState([]);
-  const [eveningSlots,seteveningSlots ]  = useState([]);
+  const [morningSlots, setmorningSlots] = useState([]);
+  const [afternoonSlots, setafternoonSlots] = useState([]);
+  const [eveningSlots, seteveningSlots] = useState([]);
   let username = '';
   let email = '';
   let startTimeUser;
@@ -89,17 +84,17 @@ const Book_Appointment = () => {
     const day = parseInt(parts[2], 10);
     return `${month}/${day}/${year}`;
   }
-
+  const createChannel=()=>{
+    PushNotification.createChannel({
+      channelId:'123',
+      channelName:'demo'
+    })
+  }
   const handleSubmission = async () => {
     username = await AsyncStorage.getItem('UserName');
     email = await AsyncStorage.getItem('Email');
     // await AsyncStorage.setItem("Email","harshmaghnani@gmail.com");
     console.log('HANDLE SUBMISSION');
-    console.log('DATE : ', selectedDate)
-    console.log('CATEGORY : ', selectedCategory);
-    console.log('TIME : ', selectedTime);
-    console.log('USERNAME : ', username);
-    console.log('EMAIL : ', email);
     const currentDate = new Date();
     const currentTime = new Date();
 
@@ -109,7 +104,14 @@ const Book_Appointment = () => {
     console.log(`Date: ${date}`);
     console.log(`Time: ${time}`);
 
-    if (!serviceName || !timeSlotDuration ||!selectedSlot ||!date) {
+    if (
+      !serviceName ||
+      !timeSlotDuration ||
+      !selectedEndSlot ||
+      !date ||
+      !selectedStartSlot ||
+      !categoryData
+    ) {
       Alert.alert('Error', 'Fill all fields');
     } else {
       if (username == '' || email == '') {
@@ -117,8 +119,8 @@ const Book_Appointment = () => {
       } else {
         try {
           // let formattedDate = formatDate(selectedDate);
-          console.log('DATE :', selectedDate)
-          const response = await fetch('https://retoolapi.dev/gRkVuw/data', {
+          console.log('DATE :', selectedDate);
+          const response = await fetch('https://retoolapi.dev/B0ROar/data', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -127,31 +129,126 @@ const Book_Appointment = () => {
               username,
               timeSlotDuration: timeSlotDuration,
               serviceName: serviceName,
-              selectedSlot: selectedSlot,
-              date: date
+              endTime: selectedEndSlot,
+              startTime: selectedStartSlot,
+              category: categoryData,
+              date: date,
             }),
           });
           if (response.ok) {
-
+            handleSendNotification();
             Alert.alert('Appointment booked successfully');
+            if(Platform.OS=='android')
+            {
+            PushNotification.localNotification({
+              channelId:'123',
+              title:'Success',
+              message:'Appointment booked successfully'
+            })
+          }
+          else{
+            PushNotificationIOS.addNotificationRequest({
+              id: '123',
+              body:'Appointment Book Successfully',
+              title:'Success',
+            })
+            
+          }
           } else {
-
             console.error('Failed to book appointment');
           }
         } catch (error) {
           console.error('Error booking appointment:', error);
         }
-
       }
     }
   };
+  const subscribeToUserTopic = async () => {
+    try {
+      const username = await AsyncStorage.getItem('UserName');
+  
+      if (username) {
+        messaging()
+          .subscribeToTopic(`user_${username}`)
+          .then(() => console.log(`Subscribed to topic: user_${username}`))
+          .catch((error) => console.log(`Error subscribing to topic: ${error}`));
+      } else {
+        console.log('No username found in AsyncStorage.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+  // Call the subscribeToUserTopic function to subscribe the user to their topic
+  subscribeToUserTopic();
+  const handleSendNotification = async () => {
+    try {
+      // Your FCM token should be stored and retrieved from your backend server
+      let deviceToken = 'dH08Ltd9RiK7kNX1kjLkg2:APA91bHv7dU6ou_iUooVAFv9rjE_pGYyk1cn20cr7XYD3_gnZH8jElEPggbwa2GCGr8xMu4_coKi1wjpa4UfSfxYp-GhIwlkB_hibBMzqyVDpbxMaEjspvHfw0jjN9wCuUCkex7LIqyK'; // Replace with the actual FCM token for the device
 
-  const onSelectTime = (time) => {
-    setSelectedTime(time); // Set the selectedTime to the clicked timeslot's time
+      // Function to send a test notification to your app using Firebase Cloud Messaging REST API
+      const response = await fetch('https://fcm.googleapis.com/fcm/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'key=AAAAU6-WgYw:APA91bEtXUQS7vn3m6p6n9gq5S_k8nKrhEUemPnOOu0cm7SmwZM1TBbADtxnYlbPsRjiq8twOyJR7bd_TppbL8TR3O23yUcvW9_PbzLpBNKdkCkx72z3LF4iDRjM0cHP7aua7rZiOxzp', // Replace with your FCM server key
+        },
+        body: JSON.stringify({
+          to: deviceToken,
+          notification: {
+            title: 'New',
+            body: `${username} booked appointment`,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        const responseData = await response.text();
+        console.log('Raw Response:', responseData);
+      } else {
+        console.log('Error sending test notification.');
+      }
+    } catch (error) {
+      console.error('Error sending test notification:', error);
+    }
   };
 
   useEffect(() => {
     fetchApiContent();
+    createChannel();
+    messaging()
+      .requestPermission()
+      .then(() => messaging().getToken())
+      .then((token) => {
+        console.log('FCM Token:', token);
+        // Send this token to your server to target specific devices
+      })
+      .catch((error) => {
+        console.log('Error requesting permission or getting FCM token:', error);
+      });
+
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      console.log('Received a foreground message:', remoteMessage);
+
+      if (Platform.OS === 'android') {
+        PushNotification.localNotification({
+          channelId:'123',
+          message:remoteMessage.notification.body
+        });
+
+      }
+    });
+
+    messaging()
+      .getInitialNotification()
+      .then((remoteMessage) => {
+        if (remoteMessage) {
+          console.log('Received a background message:', remoteMessage);
+        }
+      });
+
+    return () => unsubscribe();
   }, []);
 
   const fetchApiContent = async () => {
@@ -167,7 +264,7 @@ const Book_Appointment = () => {
       console.log(rolejsondata);
 
       //time
-      const responseTimes = await fetch('https://myjsons.com/v/56461432');
+      const responseTimes = await fetch('https://retoolapi.dev/0roSS2/data');
         const jsonData = await responseTimes.json();
         setData(jsonData);
     } catch (error) {
@@ -239,22 +336,22 @@ const Book_Appointment = () => {
   let durations = 60;
 
 
-  function durationChange (d) {
-    console.log("DURATION : ",d);
-    console.log("user start", startTime);
-    console.log("user end", endTime);
-    durations=d;
+  function durationChange(d, val) {
+    setCategoryData(val);
+    console.log('DURATION : ', d);
+    console.log('user start', startTime);
+    // console.log("user end", startEndUser);
+    durations = d;
     setTimeSlotDuration(durations);
-    timeSlots=[];
-    timeSlots = generateTimeSlots(startTime,endTime, durations);
-    console.log("ts",timeSlots);
+    timeSlots = [];
+    timeSlots = generateTimeSlots(startTime, endTime, durations);
+    console.log('ts', timeSlots);
     timedivision();
   }
 
 
   const dummyfunc = (name)=>{
     // console.log(name);
-    setShowDuration(true);
     names=name;
     // console.log(name);
     setServiceName(name);
@@ -302,12 +399,12 @@ const Book_Appointment = () => {
   // timedivision();
 
 
-  function returntime(e) {
+  function returntime(e, e1) {
     // console.log(e);
-    setSelectedSlot(e);
-    // console.log(selectedSlot);
+    setselectedStartSlot(e1);
+    setselectedEndSlot(e);
+    // console.log(selectedEndSlot);
   }
-
   function newFunc (newD){
     setselectDay(newD);
     selDay=newD;
@@ -420,136 +517,250 @@ const Book_Appointment = () => {
             <Text style={{ color: 'black' }}>15 mins</Text>
           </TouchableOpacity>
         </View> */}
-        <Text style={{
+        <Text
+          style={{
             color: 'black',
             fontSize: 15,
             fontFamily: 'Poppins-Regular',
-            marginTop:10
-          }}> Select Category </Text>
-<ScrollView horizontal>
-<View style={{ flexDirection: 'row',
-                borderColor: 'black',
-                // borderRadius: 10,
-                // justifyContent:'center'
-                // alignItems:'center'
-                 }}>
-          <TouchableOpacity onPress={() => durationChange(60)} >
-          <View  style={[
-                        {
-                          borderWidth: 1,
-                          borderColor: 'black',
-                          borderRadius: 10,
-                          height: 70,
-                          marginHorizontal: 10,
-                          marginTop: 10,
-                        },
-                        {
-                          backgroundColor:
-                            // selectedCategory === element.category
-                            timeSlotDuration === 60
-                              ? '#175CA4'
-                              : 'white',
-                        }]}>  
-             <Text style={[{ color: 'black',fontFamily:'Poppins-Regular', marginTop:13,marginHorizontal:10},{  color:
-                            timeSlotDuration === 60
-                                ? 'white'
-                                : 'black',}]}> Introduction To Bynocs </Text>
-             <Text style={[{ color: 'black',fontFamily:'Poppins-Regular',marginHorizontal:15}, {
-                            color:
-                            timeSlotDuration === 60
-                                ? 'white'
-                                : 'black',
-                          },]}>60 mins</Text>
+            marginTop: 10,
+          }}>
+          {' '}
+          Select Category{' '}
+        </Text>
+<ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View
+            style={{
+              flexDirection: 'row',
+              borderColor: 'black',
+              // borderRadius: 10,
+              // justifyContent:'center'
+              // alignItems:'center'
+            }}>
+            <TouchableOpacity
+              onPress={() => durationChange(60, 'Introduction To Bynocs')}>
+              <View
+                style={[
+                  {
+                    borderWidth: 1,
+                    borderColor: 'black',
+                    borderRadius: 10,
+                    height: 70,
+                    marginHorizontal: 10,
+                    marginTop: 10,
+                  },
+                  {
+                    backgroundColor:
+                      // selectedCategory === element.category
+                      categoryData === 'Introduction To Bynocs'
+                        ? '#175CA4'
+                        : 'white',
+                  },
+                ]}>
+                <Text
+                  style={[
+                    {
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      marginTop: 13,
+                      marginHorizontal: 10,
+                    },
+                    {
+                      color:
+                        categoryData === 'Introduction To Bynocs'
+                          ? 'white'
+                          : 'black',
+                    },
+                  ]}>
+                  {' '}
+                  Introduction To Bynocs{' '}
+                </Text>
+                <Text
+                  style={[
+                    {
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      marginHorizontal: 15,
+                    },
+                    {
+                      color:
+                        categoryData === 'Introduction To Bynocs'
+                          ? 'white'
+                          : 'black',
+                    },
+                  ]}>
+                  60 mins
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => durationChange(45, 'Initial Assessment')}>
+              <View
+                style={[
+                  {
+                    borderWidth: 1,
+                    borderColor: 'black',
+                    borderRadius: 10,
+                    height: 70,
+                    marginHorizontal: 10,
+                    marginTop: 10,
+                  },
+                  {
+                    backgroundColor:
+                      // selectedCategory === element.category
+                      categoryData === 'Initial Assessment'
+                        ? '#175CA4'
+                        : 'white',
+                  },
+                ]}>
+                <Text
+                  style={[
+                    {
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      marginTop: 13,
+                      marginHorizontal: 10,
+                    },
+                    {
+                      color:
+                        categoryData === 'Initial Assessment'
+                          ? 'white'
+                          : 'black',
+                    },
+                  ]}>
+                  {' '}
+                  Initial Assessment{' '}
+                </Text>
+                <Text
+                  style={[
+                    {
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      marginHorizontal: 15,
+                    },
+                    {
+                      color:
+                        categoryData === 'Initial Assessment'
+                          ? 'white'
+                          : 'black',
+                    },
+                  ]}>
+                  45 mins
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => durationChange(45, 'Follow Up Assessment')}>
+              <View
+                style={[
+                  {
+                    borderWidth: 1,
+                    borderColor: 'black',
+                    borderRadius: 10,
+                    height: 70,
+                    marginHorizontal: 10,
+                    marginTop: 10,
+                  },
+                  {
+                    backgroundColor:
+                      // selectedCategory === element.category
+                      categoryData === 'Follow Up Assessment'
+                        ? '#175CA4'
+                        : 'white',
+                  },
+                ]}>
+                <Text
+                  style={[
+                    {
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      marginTop: 13,
+                      marginHorizontal: 10,
+                    },
+                    {
+                      color:
+                        categoryData === 'Follow Up Assessment'
+                          ? 'white'
+                          : 'black',
+                    },
+                  ]}>
+                  {' '}
+                  Follow Up Assessment{' '}
+                </Text>
+                <Text
+                  style={[
+                    {
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      marginHorizontal: 15,
+                    },
+                    {
+                      color:
+                        categoryData === 'Follow Up Assessment'
+                          ? 'white'
+                          : 'black',
+                    },
+                  ]}>
+                  45 mins
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => durationChange(15, 'Technical Support')}>
+              <View
+                style={[
+                  {
+                    borderWidth: 1,
+                    borderColor: 'black',
+                    borderRadius: 10,
+                    height: 70,
+                    marginHorizontal: 10,
+                    marginTop: 10,
+                  },
+                  {
+                    backgroundColor:
+                      // selectedCategory === element.category
+                      categoryData === 'Technical Support'
+                        ? '#175CA4'
+                        : 'white',
+                  },
+                ]}>
+                <Text
+                  style={[
+                    {
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      marginTop: 13,
+                      marginHorizontal: 10,
+                    },
+                    {
+                      color:
+                        categoryData === 'Technical Support'
+                          ? 'white'
+                          : 'black',
+                    },
+                  ]}>
+                  {' '}
+                  Technical Support{' '}
+                </Text>
+                <Text
+                  style={[
+                    {
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      marginHorizontal: 15,
+                    },
+                    {
+                      color:
+                        categoryData === 'Technical Support'
+                          ? 'white'
+                          : 'black',
+                    },
+                  ]}>
+                  15 mins
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => durationChange(45)}>
-          <View  style={[
-                        {
-                          borderWidth: 1,
-                          borderColor: 'black',
-                          borderRadius: 10,
-                          height: 70,
-                          marginHorizontal: 10,
-                          marginTop: 10,
-                        },
-                        {
-                          backgroundColor:
-                            // selectedCategory === element.category
-                            timeSlotDuration === 45
-                              ? '#175CA4'
-                              : 'white',
-                        }]}>
-            <Text style={[{ color: 'black',fontFamily:'Poppins-Regular', marginTop:13,marginHorizontal:10},{  color:
-                            timeSlotDuration === 45
-                                ? 'white'
-                                : 'black',}]}> Initial Assessment </Text>
-            <Text style={[{ color: 'black',fontFamily:'Poppins-Regular',marginHorizontal:15}, {
-                            color:
-                            timeSlotDuration === 45
-                                ? 'white'
-                                : 'black',
-                          },]}>45 mins</Text>
-            </View>
-          </TouchableOpacity>
-          {/* <TouchableOpacity onPress={() => setTimeSlotDuration(45)}>
-          <View  style={[
-                        {
-                          borderWidth: 1,
-                          borderColor: 'black',
-                          borderRadius: 10,
-                          height: 70,
-                          marginHorizontal: 10,
-                          marginTop: 10,
-                        },
-                        {
-                          backgroundColor:
-                            // selectedCategory === element.category
-                            timeSlotDuration === 45
-                              ? '#175CA4'
-                              : 'white',
-                        }]}>
-            <Text style={[{ color: 'black',fontFamily:'Poppins-Regular', marginTop:13,marginHorizontal:10},{  color:
-                            timeSlotDuration === 45
-                                ? 'white'
-                                : 'black',}]}> Follow Up Assessment </Text>
-            <Text style={[{ color: 'black',fontFamily:'Poppins-Regular',marginHorizontal:15}, {
-                            color:
-                            timeSlotDuration === 45
-                                ? 'white'
-                                : 'black',
-                          },]}>45 mins</Text>
-          </View>
-          </TouchableOpacity> */}
-          <TouchableOpacity onPress={() => durationChange(15)}>
-          <View  style={[
-                        {
-                          borderWidth: 1,
-                          borderColor: 'black',
-                          borderRadius: 10,
-                          height: 70,
-                          marginHorizontal: 10,
-                          marginTop: 10,
-                        },
-                        {
-                          backgroundColor:
-                            // selectedCategory === element.category
-                            timeSlotDuration === 15
-                              ? '#175CA4'
-                              : 'white',
-                        }]}>
-            <Text style={[{ color: 'black',fontFamily:'Poppins-Regular', marginTop:13,marginHorizontal:10},{  color:
-                            timeSlotDuration === 15
-                                ? 'white'
-                                : 'black',}]}> Technical Support </Text>
-            <Text style={[{ color: 'black',fontFamily:'Poppins-Regular',marginHorizontal:15}, {
-                            color:
-                            timeSlotDuration === 15
-                                ? 'white'
-                                : 'black',
-                          },]}>15 mins</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
         </ScrollView>
        
         <View style={{ marginTop: 30 }}>
@@ -610,7 +821,7 @@ const Book_Appointment = () => {
                   return (
                     <TouchableOpacity
                       key={index}
-                      onPress={() => returntime(slot.end)}
+                      onPress={() => returntime(slot.end, slot.start)}
                     >
                       <View
                         style={[
@@ -624,7 +835,8 @@ const Book_Appointment = () => {
                           },
                           {
                             backgroundColor:
-                              selectedSlot === slot.end
+                            selectedEndSlot === slot.end &&
+                            selectedStartSlot == slot.start
                                 ? '#175CA4'
                                 : 'white',
                           },
@@ -641,7 +853,8 @@ const Book_Appointment = () => {
                             },
                             {
                               color:
-                                selectedSlot === slot.end
+                              selectedEndSlot === slot.end &&
+                              selectedStartSlot == slot.start
                                   ? 'white'
                                   : 'black',
                             },
@@ -704,7 +917,7 @@ const Book_Appointment = () => {
                   return (
                     <TouchableOpacity
                       key={index}
-                      onPress={() => returntime(slot.end)}
+                      onPress={() => returntime(slot.end, slot.start)}
                     >
                       <View
                         style={[
@@ -718,7 +931,8 @@ const Book_Appointment = () => {
                           },
                           {
                             backgroundColor:
-                              selectedSlot === slot.end
+                            selectedEndSlot === slot.end &&
+                            selectedStartSlot == slot.start
                                 ? '#175CA4'
                                 : 'white',
                           },
@@ -735,7 +949,8 @@ const Book_Appointment = () => {
                             },
                             {
                               color:
-                                selectedSlot === slot.end
+                              selectedEndSlot === slot.end &&
+                              selectedStartSlot == slot.start
                                   ? 'white'
                                   : 'black',
                             },
@@ -798,7 +1013,7 @@ const Book_Appointment = () => {
                   return (
                     <TouchableOpacity
                       key={index}
-                      onPress={() => returntime(slot.end)}
+                      onPress={() => returntime(slot.end, slot.start)}
                     >
                       <View
                         style={[
@@ -812,7 +1027,8 @@ const Book_Appointment = () => {
                           },
                           {
                             backgroundColor:
-                              selectedSlot === slot.end
+                            selectedEndSlot === slot.end &&
+                            selectedStartSlot == slot.start
                                 ? '#175CA4'
                                 : 'white',
                           },
@@ -829,7 +1045,8 @@ const Book_Appointment = () => {
                             },
                             {
                               color:
-                                selectedSlot === slot.end
+                              selectedEndSlot === slot.end &&
+                              selectedStartSlot == slot.start
                                   ? 'white'
                                   : 'black',
                             },

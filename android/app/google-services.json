@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "359428161932",
+    "project_id": "bynocsapp",
+    "storage_bucket": "bynocsapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359428161932:android:06fbc6f4ada8d9c3d556a9",
+        "android_client_info": {
+          "package_name": "com.bynocs_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359428161932-qescm8hnoq5fken3c4hgprs7jcmios2t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bynocs_app",
+            "certificate_hash": "961d35d523b4cff19eebf9a5088453f35f3a072a"
+          }
+        },
+        {
+          "client_id": "359428161932-btem7me43hai2n46mp17g12mmt5qmep4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy1QZESFo1IZwvp7Hz2KUSekLB_VqPgYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359428161932-btem7me43hai2n46mp17g12mmt5qmep4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

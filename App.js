@@ -40,9 +40,9 @@ const App = () => {
     setAddPageVisible(true);
   };
 
-  const handleCloseAddPage = () => {
+  const handleCloseAddPage = (navigation) => {
     setAddPageVisible(false);
-    navigation.current && navigation.current.navigate('SecondPage');
+    // navigation.current && navigation.current.navigate('SecondPage');
   };
 
 
@@ -52,7 +52,7 @@ const App = () => {
 
   const handleCloseAddPageThird = () => {
     setAddPageVisibleThird(false);
-    navigation.current && navigation.current.navigate('ThirdPage');
+    // navigation.current && navigation.current.navigate('ThirdPage');
    
   };
   const checkLoginStatus = async () => {
@@ -148,13 +148,13 @@ const App = () => {
               name="BottomNavTabs"
               options={{ headerShown: false }}
             />
-        <stack.Screen
-          name="First"
+        {/* <stack.Screen
+          name="FirstPage"
           component={FirstPage}
           options={{
             title: 'First Page',
           }}
-        />
+        /> */}
        
        
         <stack.Screen

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert,View, Text, StyleSheet, TouchableOpacity, Image, TextInput, ScrollView, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ModalDropdown from 'react-native-modal-dropdown';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function AddPage({ handleCloseAddPage }) {
   const navigation = useNavigation();
@@ -19,8 +19,25 @@ function AddPage({ handleCloseAddPage }) {
   };
   const [showToTimeInput, setShowToTimeInput] = useState(false);
   const [showFromTimeInput, setShowFromTimeInput] = useState(false);
-  const [toTime, setToTime] = useState('');
-  const [fromTime, setFromTime] = useState('');
+  const [start, setStart] = useState('');
+  const [end, setEnd] = useState('');
+  const [username, setUserName] = useState('');
+
+  useEffect(()=>{
+    retrieveUserName();
+  },[])
+
+  const retrieveUserName = async () => {
+    try {
+      const storedUserName = await AsyncStorage.getItem('UserName');
+      console.log(storedUserName);
+      if (storedUserName) {
+        setUserName(storedUserName);
+      }
+    } catch (error) {
+      console.error('Error retrieving userName from AsyncStorage:', error);
+    }
+  };
 
   const handleToTimeIconPress = () => {
     setShowToTimeInput(!showToTimeInput);
@@ -31,11 +48,11 @@ function AddPage({ handleCloseAddPage }) {
   };
 
   const handleToTimeInputChange = (text) => {
-    setToTime(text);
+    setStart(text);
   };
 
   const handleFromTimeInputChange = (text) => {
-    setFromTime(text);
+    setEnd(text);
   };
   const renderDropdownRow = (rowData, rowID,) => (
     <View style={styles.dropdownRow}>
@@ -51,7 +68,7 @@ function AddPage({ handleCloseAddPage }) {
       end,
       username
     };
-    fetch("https://retoolapi.dev/D3HKGH/data", {
+    fetch("https://retoolapi.dev/0roSS2/data", {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -106,7 +123,7 @@ function AddPage({ handleCloseAddPage }) {
         {showToTimeInput && (
           <TextInput
             style={styles.textinput}
-            value={start}
+            // value={start}
             onChangeText={handleToTimeInputChange}
           />
         )}
@@ -120,7 +137,7 @@ function AddPage({ handleCloseAddPage }) {
         {showFromTimeInput && (
           <TextInput
             style={styles.textinput}
-            value={end}
+            // value={end}
             onChangeText={handleFromTimeInputChange}
           />
         )}

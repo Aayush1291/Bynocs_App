@@ -87,7 +87,7 @@ var sec = new Date().getSeconds();*/
 
   const fetchAppointments = async () => {
     try {
-      const response = await fetch(`https://retoolapi.dev/SQjura/saving`);
+      const response = await fetch(`https://retoolapi.dev/B0ROar/data`);
       const jsonData = await response.json();
       setAppointments(jsonData);
       console.log(jsonData);
@@ -110,13 +110,13 @@ var sec = new Date().getSeconds();*/
 
   return (
     <ScrollView>
-      <TouchableOpacity onPress={handleBackPress}>
+      {/* <TouchableOpacity onPress={handleBackPress}>
         <Back
           name="arrow-back-ios"
           size={30}
           style={{marginLeft: responsiveWidth(2)}}
         />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       {/*<Text style={{color: 'black', fontWeight: 'bold', fontSize: 15}}>
             Thursday {date}, {monthIndexToMonth(month)} 2022
         </Text>*/}
@@ -270,35 +270,61 @@ var sec = new Date().getSeconds();*/
         {/* Render the appointments list */}
 
         {appointments && appointments.length > 0 ? (
-          appointments.map((appointment, index) => (
-            <View
-              key={index}
-              style={{
-                marginTop: 20,
-                marginHorizontal: 20,
-                borderWidth: 0.5,
-                borderRadius: 8,
-                borderColor: '#175CA4',
-                backgroundColor: 'white',
-                // shadowColor: '#171717',
-                // shadowOffset: {width: -2, height: 4},
-                // shadowOpacity: 0.2,
-                // shadowRadius: 3,
-                elevation: 16,
-              }}>
-              <View style={{marginHorizontal: 20, marginVertical: 10}}>
-                <Text style={{color: '#175CA4', fontFamily: 'Poppins-Regular'}}>
-                  Date: {formatDate(appointment.appointmentDate)}
-                </Text>
-                <Text style={{color: '#175CA4', fontFamily: 'Poppins-Regular'}}>
-                  Time: {appointment.time}
-                </Text>
-                <Text style={{color: '#175CA4', fontFamily: 'Poppins-Regular'}}>
-                  Category: {appointment.category}
-                </Text>
+          appointments.map((appointment, index) => {
+            return (
+              <View>
+                {appointment.username === userName ? (
+                  <View
+                    key={index}
+                    style={{
+                      marginTop: 20,
+                      marginHorizontal: 20,
+                      borderWidth: 0.5,
+                      borderRadius: 8,
+                      borderColor: '#175CA4',
+                      backgroundColor: 'white',
+                      // shadowColor: '#171717',
+                      // shadowOffset: {width: -2, height: 4},
+                      // shadowOpacity: 0.2,
+                      // shadowRadius: 3,
+                      // elevation: 16,
+                    }}>
+                    <View style={{marginHorizontal: 20, marginVertical: 10}}>
+                      <Text
+                        style={{
+                          color: '#175CA4',
+                          fontFamily: 'Poppins-Regular',
+                        }}>
+                        {/* Date: {formatDate(appointment.date)} */}
+                        Date: {appointment.date}
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#175CA4',
+                          fontFamily: 'Poppins-Regular',
+                        }}>
+                        Time: {appointment.startTime} - {appointment.endTime}
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#175CA4',
+                          fontFamily: 'Poppins-Regular',
+                        }}>
+                        Category: {appointment.category}
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#175CA4',
+                          fontFamily: 'Poppins-Regular',
+                        }}>
+                        Appointment with: {appointment.serviceName}
+                      </Text>
+                    </View>
+                  </View>
+                ) : null}
               </View>
-            </View>
-          ))
+            );
+          })
         ) : (
           <View
             style={{
