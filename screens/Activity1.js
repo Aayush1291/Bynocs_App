@@ -1,5 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import {
+  responsiveWidth,
+  responsiveFontSize,
+  responsiveHeight,
+} from 'react-native-responsive-dimensions';
 
 import Sloan_Letter_C from '../assets/Sloan_Letter_C.svg';
 import Sloan_Letter_D from '../assets/Sloan_Letter_D.svg';
@@ -29,13 +34,15 @@ const optionSize = 40;
 
 const sizes = [40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 4, 2];
 
-const Activity1 = () => {
+const Activity1 = ({navigation}) => {
   const [currentLetter, setCurrentLetter] = useState(0);
   const [options, setOptions] = useState([]);
   const [currentSize, setCurrentSize] = useState(sizes[0]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const[round2,setRound2]=useState(false)
+  const [showExitModal, setShowExitModal] = useState(false); // State variable to control modal visibility
+
   const timerRef = useRef(null);
   useEffect(() => {
     setCurrentLetter(0);
@@ -55,6 +62,11 @@ const Activity1 = () => {
 
   const handleGameOver = () => {
     setGameOver(true);
+  };
+
+  const handleExit = () => {
+    setShowExitModal(false);
+    navigation.navigate('Home'); // Navigate back to the home page
   };
 
   const resetGame = () => {
@@ -150,6 +162,26 @@ const Activity1 = () => {
           );
         })}
       </View>
+      <TouchableOpacity
+        onPress={() => setShowExitModal(true)}
+        style={styles.exitButton}>
+        <Text style={styles.exitButtonText}>Exit</Text>
+      </TouchableOpacity>
+
+      <Modal visible={showExitModal} animationType="slide" transparent={true}>
+        <View style={styles.modalExitContainer}>
+          <View style={styles.modalExitContent}>
+          <Text style={styles.modalText}>Well Done!</Text>
+            <Text style={[styles.modalText, {marginBottom: responsiveHeight(2)}]}>
+              Score: {score}
+            </Text>
+            <TouchableOpacity onPress={handleExit} style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
     </View>
   );
 };
@@ -190,6 +222,58 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  exitButton: {
+    backgroundColor: '#175CA4',
+    width: responsiveWidth(35),
+    height: responsiveHeight(5),
+    borderRadius: responsiveWidth(2),
+    marginLeft: responsiveWidth(55),
+    marginTop: responsiveHeight(20),
+    justifyContent: 'center',
+  },
+  exitButtonText: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: responsiveFontSize(2.3),
+    fontWeight: 'normal',
+    fontFamily: 'Poppins-Regular',
+  },
+  modalExitContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalExitContent: {
+    backgroundColor: 'white',
+    padding: responsiveWidth(5),
+    borderRadius: responsiveWidth(5),
+    height: responsiveHeight(20),
+    width: responsiveWidth(75),
+  },
+  modalText: {
+    fontSize: responsiveFontSize(2.5),
+    textAlign: 'center',
+    color: 'black',
+    fontFamily: 'Poppins-Regular',
+  },
+  modalButton: {
+    backgroundColor: '#175CA4',
+    width: responsiveWidth(65),
+    height: responsiveHeight(5),
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: responsiveWidth(2),
+    marginBottom: responsiveHeight(1.5),
+  },
+  modalButtonText: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: responsiveFontSize(2.3),
+    fontWeight: 'normal',
+    fontFamily: 'Poppins-Regular',
   },
 });
 

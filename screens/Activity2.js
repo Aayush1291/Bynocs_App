@@ -32,7 +32,7 @@ const colors = [
   '#8F6FA4',
   '#8073B2',
 ];
-const Activity2 = (navigation) => {
+const Activity2 = ({navigation}) => {
   const [isCorrect, setIsCorrect] = useState(false); // State variable to store the correctness of the color array
   const [selectedOption, setSelectedOption] = useState(null); // State variable to store the selected color array index
   const [shouldReset, setShouldReset] = useState(false); // State variable to trigger reset
@@ -145,7 +145,7 @@ const Activity2 = (navigation) => {
         style={styles.exitButton}>
         <Text style={styles.exitButtonText}>Exit</Text>
       </TouchableOpacity>
-      {isCorrect && <Text style={styles.modalText}>Correct!</Text>}
+      {isCorrect && <Text style={[styles.modalText, {marginTop:responsiveHeight(5)}]}>Correct!</Text>}
 
       <Modal
         visible={showRefreshModal}
@@ -161,9 +161,6 @@ const Activity2 = (navigation) => {
             <TouchableOpacity onPress={handleReplay} style={styles.modalButton}>
               <Text style={styles.modalButtonText}>OK</Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity onPress={handleGoBack} style={styles.goBackButton}>
-              <Text style={styles.goBackButtonText}>Go Back</Text>
-            </TouchableOpacity> */}
           </View>
         </View>
       </Modal>
@@ -172,14 +169,11 @@ const Activity2 = (navigation) => {
           <View style={styles.modalExitContent}>
             <Text
               style={[styles.modalText, {marginBottom: responsiveHeight(2)}]}>
-              Well Done.
+              Well Done!
             </Text>
             <TouchableOpacity onPress={handleExit} style={styles.modalButton}>
               <Text style={styles.modalButtonText}>OK</Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity onPress={handleGoBack} style={styles.goBackButton}>
-              <Text style={styles.goBackButtonText}>Go Back</Text>
-            </TouchableOpacity> */}
           </View>
         </View>
       </Modal>
