@@ -15,7 +15,6 @@ import BottomNavTabs from './screens/bottomNavigation';
 import Notifications from './screens/notifications';
 import Activity1 from './screens/Activity1';
 import Activity3 from './screens/Activity3';
-import Activity2 from './screens/Activity2';
 import Profile from './screens/profile';
 import ServiceHome from './screens/slides/ServiceHome';
 import Modal from 'react-native-modal';
@@ -24,6 +23,7 @@ import SecondPage from './screens/SecondPage';
 import AddPage from './screens/AddPage';
 import ThirdPage from './screens/timeoff';
 import AddPage2 from './screens/AddPage2';
+import Activity2 from './screens/Activity2';
 const stack = createNativeStackNavigator();
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
