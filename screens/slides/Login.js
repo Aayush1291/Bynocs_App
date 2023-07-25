@@ -73,7 +73,7 @@ const Login = ({ navigation }) => {
             if(user.role!=1)
             navigation.replace('BottomNavTabs');
             else
-            navigation.replace('FirstPage')
+            navigation.replace('Firstpage')
           }, 1000);
         } else {
           Alert.alert('Error', 'Invalid password!');
@@ -101,7 +101,7 @@ const Login = ({ navigation }) => {
       const role = await AsyncStorage.getItem('role');
   
       if (isLoggedIn === 'true' && role === '1') {
-        navigation.replace('ServiceHome');
+        navigation.replace('Firstpage');
       } else if (isLoggedIn === 'true') {
         navigation.replace('BottomNavTabs');
       }

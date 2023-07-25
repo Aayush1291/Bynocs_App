@@ -30,7 +30,7 @@ const SecondPage = () => {
   }, []);
 
   const dele = async (id) => {
-    const url = "https://retoolapi.dev/0roSS2/data";
+    const url = "https://retoolapi.dev/D3HKGH/data";
     try {
       let result = await fetch(`${url}/${id}`, {
         method: "delete",
@@ -60,13 +60,13 @@ const SecondPage = () => {
         data.map((time, index) => (
           <View key={time.id} style={styles.rowContainer}>
             <View style={[styles.column, { flex: 1.2 }]}>
-              <Text style={{ color: 'black' }}>{time.weekday}</Text>
+              <Text style={{ color: 'black' }}>{time.selectedWeekday}</Text>
             </View>
             <View style={styles.column}>
-              <Text style={{ color: 'black' }}>{time.end}</Text>
+              <Text style={{ color: 'black' }}>{time.toTime}</Text>
             </View>
             <View style={styles.column}>
-              <Text style={{ color: 'black' }}>{time.start}</Text>
+              <Text style={{ color: 'black' }}>{time.fromTime}</Text>
             </View>
             <View style={[styles.column, { flex: 0.3 }]}>
               <TouchableOpacity onPress={() => dele(time.id)} disabled={isDeleteDisabled && index === 0}>

@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 function AddPage({ handleCloseAddPage }) {
   const navigation = useNavigation();
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const [weekday, setSelectedWeekday] = useState('');
+  const [selectedWeekday, setSelectedWeekday] = useState('');
   const [showTextbox, setShowTextbox] = useState(false);
 
   const handleBackPress = () => {
@@ -22,6 +22,8 @@ function AddPage({ handleCloseAddPage }) {
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
   const [username, setUserName] = useState('');
+  const [toTime, setToTime] = useState('');
+  const [fromTime, setFromTime] = useState('');
 
   useEffect(()=>{
     retrieveUserName();
@@ -48,11 +50,11 @@ function AddPage({ handleCloseAddPage }) {
   };
 
   const handleToTimeInputChange = (text) => {
-    setStart(text);
+    setToTime(text);
   };
 
   const handleFromTimeInputChange = (text) => {
-    setEnd(text);
+    setFromTime(text);
   };
   const renderDropdownRow = (rowData, rowID,) => (
     <View style={styles.dropdownRow}>
@@ -63,12 +65,13 @@ function AddPage({ handleCloseAddPage }) {
   );
    const handleData = ()=>{
     const formData={    
-      weekday,
-      start,
-      end,
+      selectedWeekday,
+      fromTime,
+      toTime,
       username
+    
     };
-    fetch("https://retoolapi.dev/0roSS2/data", {
+    fetch("https://retoolapi.dev/D3HKGH/data", {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -96,7 +99,7 @@ function AddPage({ handleCloseAddPage }) {
         <View style={[styles.row, styles.rowWithLine, { marginTop: 20 }]}>
           <Text style={styles.label}>Weekday</Text>
           <View style={styles.weekdayContainer}>
-            <Text style={styles.selectedWeekdayText}>{weekday}</Text>
+            <Text style={styles.selectedWeekdayText}>{selectedWeekday}</Text>
             <ModalDropdown
               options={weekdays}
               defaultValue="Select Weekday"
