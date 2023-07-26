@@ -103,7 +103,7 @@ const App = () => {
           {isLoggedIn && userRole === '1' ? 
             <stack.Screen
             component={ServiceHomePage}
-            name="ServiceHomePage"
+            name="ServiceHome"
             options={{ headerShown: false }}
           />
           // null 
@@ -203,7 +203,7 @@ const App = () => {
           />
           <stack.Screen
             component={ServiceHomePage}
-            name="ServiceHome"
+            name="ServiceHomePage"
             options={{ headerShown: false }}
           />
           <stack.Screen
@@ -215,8 +215,8 @@ const App = () => {
             name="SecondPage"
             component={SecondPage}
             options={{
+              headerShown:true,
               title: 'Visiting Time Slot',
-              headerShown: true,
               headerRight: () => (
                 <TouchableOpacity
                   style={{marginRight: 10}}
@@ -230,6 +230,7 @@ const App = () => {
             name="ThirdPage"
             component={ThirdPage}
             options={{
+              headerShown:true,
               title: 'Time off',
               headerRight: () => (
                 <TouchableOpacity
@@ -248,7 +249,7 @@ const App = () => {
         onBackdropPress={handleCloseAddPage}
         style={styles.bottomSheet}>
         <View style={styles.bottomSheetContent}>
-          <Text style={styles.bottomSheetTitle}>Add Page</Text>
+          <Text style={styles.bottomSheetTitle}>Add</Text>
           <AddPage handleCloseAddPage={handleCloseAddPage} />
         </View>
       </Modal>
@@ -259,7 +260,7 @@ const App = () => {
         onBackdropPress={handleCloseAddPageThird}
         style={styles.bottomSheet}>
         <View style={styles.bottomSheetContent}>
-          <Text style={styles.bottomSheetTitle}>Add Page2</Text>
+          <Text style={styles.bottomSheetTitle}>Add</Text>
 
           <AddPage2 handleCloseAddPageThird={handleCloseAddPageThird} />
         </View>

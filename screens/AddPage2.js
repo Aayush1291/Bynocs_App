@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Modal, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Calendar } from 'react-native-calendars';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 
 function AddPage2({ handleCloseAddPageThird }) {
@@ -38,24 +40,59 @@ function AddPage2({ handleCloseAddPageThird }) {
   const [showFromTimeInput, setShowFromTimeInput] = useState(false);
   const [toTime, setToTime] = useState('');
   const [fromTime, setFromTime] = useState('');
+  const [isFromTimePickerVisible, setFromTimePickerVisibility] = useState(false);
+  const [isToTimePickerVisible, setToPickerVisibility] = useState(false);
 
-  const handleToTimeIconPress = () => {
-    setShowToTimeInput(!showToTimeInput);
+  // const handleToTimeIconPress = () => {
+  //   setShowToTimeInput(!showToTimeInput);
+  // };
+
+  // const handleFromTimeIconPress = () => {
+ 
+  //   setShowFromTimeInput(!showFromTimeInput);
+  // };
+
+  // const handleToTimeInputChange = (text) => {
+  //   setToTime(text);
+  // };
+
+  // const handleFromTimeInputChange = (text) => {
+  //   setFromTime(text);
+  // };
+
+  const showFromTimePicker = () => {
+    setFromTimePickerVisibility(true);
   };
 
-  const handleFromTimeIconPress = () => {
- 
-    setShowFromTimeInput(!showFromTimeInput);
-  };
- 
- 
-
-  const handleToTimeInputChange = (text) => {
-    setToTime(text);
+  const showToTimePicker = () => {
+    setToPickerVisibility(true);
   };
 
-  const handleFromTimeInputChange = (text) => {
-    setFromTime(text);
+  const hideTimePicker = () => {
+    setFromTimePickerVisibility(false);
+    setToPickerVisibility(false)
+  };
+
+  const handleFromTime = time => {
+    const dt = new Date(time);
+    const x =dt.toLocaleTimeString().split(' ');
+    const x1 = dt.toLocaleTimeString().split(':')
+    console.log("from time "+x1[0]+':'+x1[1]+' '+x[1]);
+    setFromTime(x1[0]+':'+x1[1]+' '+x[1]);
+    console.log('A date has been picked: ', x);
+    setShowFromTimeInput(true);
+    hideTimePicker();
+  };
+
+  const handleToTime = time => {
+    const dt = new Date(time);
+    const x =dt.toLocaleTimeString().split(' ');
+    const x1 = dt.toLocaleTimeString().split(':')
+    console.log("to time "+x1[0]+':'+x1[1]+' '+x[1]);
+    setToTime(x1[0]+':'+x1[1]+' '+x[1]);
+    console.log('A date has been picked: ', x);
+    setShowToTimeInput(true);
+    hideTimePicker();
   };
  
   const handleData2 = ()=>{
@@ -121,30 +158,38 @@ function AddPage2({ handleCloseAddPageThird }) {
 
         <View style={[styles.row, styles.rowWithLine]}>
       <Text style={styles.label}>From Time</Text>
-      <TouchableOpacity style={styles.iconContainer} onPress={handleFromTimeIconPress}>
+      <TouchableOpacity style={styles.iconContainer} onPress={()=>{
+          showFromTimePicker();
+        }}>
         <Image source={require('../assets/cal.png')} style={styles.customIconCall} />
       </TouchableOpacity>
-      {showFromTimeInput && ( 
-        <TextInput
-          style={styles.textinput}
-          value={fromTime}
-          onChangeText={handleFromTimeInputChange}
-        />
-      )}
+      <DateTimePickerModal
+        isVisible={isFromTimePickerVisible}
+        mode="time"
+        onConfirm={handleFromTime}
+        onCancel={hideTimePicker}
+      />
+      {showFromTimeInput && (
+          <Text style={styles.text}>{fromTime}</Text>
+        )}
     </View>
       
     <View style={[styles.row, styles.rowWithLine]}>
       <Text style={styles.label}>To Time</Text>
-      <TouchableOpacity style={styles.iconContainer} onPress={handleToTimeIconPress}>
+      <TouchableOpacity style={styles.iconContainer} onPress={()=>{
+          showToTimePicker();
+        }}>
         <Image source={require('../assets/cal.png')} style={styles.customIconCall} />
       </TouchableOpacity>
-      {showToTimeInput && ( 
-        <TextInput
-          style={styles.textinput}
-          value={toTime}
-          onChangeText={handleToTimeInputChange}
-        />
-      )}
+      <DateTimePickerModal
+        isVisible={isToTimePickerVisible}
+        mode="time"
+        onConfirm={handleToTime}
+        onCancel={hideTimePicker}
+      />
+        {showToTimeInput && (
+          <Text style={styles.text}>{toTime}</Text>
+        )}
     </View>
     
         
@@ -281,20 +326,19 @@ marginBottom:200,
     height: 20,
     marginLeft:90,
   },
-  textInput: {
-    flex: 1,
-    height: 40, 
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 3,
-    paddingHorizontal: 10,
-    marginLeft: 80,
-    textAlignVertical: 'bottom', 
-    fontSize:14,
-    color:'black',
+  text: {
+    padding:5,
+    // borderWidth: 1,
+    // borderColor: '#ccc',
+    color:'#034694',
+    borderRadius: 5,
+    fontSize: 16,
+    height: 35,
+    marginRight: 8,
+    position: 'absolute', 
+    left: responsiveWidth(50), 
+    top: responsiveHeight(-0.7),
   },
- 
-
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
