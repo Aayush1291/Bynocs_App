@@ -25,6 +25,7 @@ import AddPage from './screens/AddPage';
 import ThirdPage from './screens/timeoff';
 import AddPage2 from './screens/AddPage2';
 import Activity2 from './screens/Activity2';
+import ServiceHomePage from './screens/ServiceHomePage';
 const stack = createNativeStackNavigator();
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -101,15 +102,17 @@ const App = () => {
         <stack.Group>
           {isLoggedIn && userRole === '1' ? 
             <stack.Screen
-            component={FirstPage}
-            name="FirstPage"
+            component={ServiceHomePage}
+            name="ServiceHomePage"
             options={{ headerShown: false }}
           />
           // null 
           : (
             null
           )}
-          {isLoggedIn && (userRole === '2' || userRole === '3') ? (
+          {isLoggedIn 
+          && (userRole === '2' || userRole === '3') 
+          ? (
             <stack.Screen
               component={BottomNavTabs}
               name="Home"
@@ -199,8 +202,13 @@ const App = () => {
             options={{headerShown: false}}
           />
           <stack.Screen
+            component={ServiceHomePage}
+            name="ServiceHome"
+            options={{ headerShown: false }}
+          />
+          <stack.Screen
             component={FirstPage}
-            name="Firstpage"
+            name="FirstPage"
             options={{headerShown: false}}
           />
           <stack.Screen

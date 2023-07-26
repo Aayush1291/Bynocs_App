@@ -87,7 +87,7 @@ var sec = new Date().getSeconds();*/
 
   const fetchAppointments = async () => {
     try {
-      const response = await fetch(`https://retoolapi.dev/B0ROar/data`);
+      const response = await fetch(`https://retoolapi.dev/qHoAoQ/data`);
       const jsonData = await response.json();
       setAppointments(jsonData);
       console.log(jsonData);
@@ -166,7 +166,7 @@ var sec = new Date().getSeconds();*/
           </TouchableOpacity>
         </View>
       </View>
-      <View
+      {/* <View
         style={{
           borderRadius: 8,
           backgroundColor: '#175ca4',
@@ -215,7 +215,7 @@ var sec = new Date().getSeconds();*/
             Check now
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <View
         style={{
           borderRadius: 8,
@@ -269,11 +269,11 @@ var sec = new Date().getSeconds();*/
       <View>
         {/* Render the appointments list */}
 
-        {appointments && appointments.length > 0 ? (
-          appointments.map((appointment, index) => {
+        {/* {appointments && appointments.length > 0 ? ( */}
+          {appointments.map((appointment, index) => {
             return (
               <View>
-                {appointment.username === userName ? (
+                {appointment.username === userName && (role==2 || role==3) ? (
                   <View
                     key={index}
                     style={{
@@ -322,11 +322,57 @@ var sec = new Date().getSeconds();*/
                     </View>
                   </View>
                 ) : null}
+                {appointment.serviceName===userName?(
+                  <View
+                  key={index}
+                  style={{
+                    marginTop: 20,
+                    marginHorizontal: 20,
+                    borderWidth: 0.5,
+                    borderRadius: 8,
+                    borderColor: '#175CA4',
+                    backgroundColor: 'white',
+                  }}>
+                  <View style={{marginHorizontal: 20, marginVertical: 10}}>
+                    <Text
+                      style={{
+                        color: '#175CA4',
+                        fontFamily: 'Poppins-Regular',
+                      }}>
+                      {/* Date: {formatDate(appointment.date)} */}
+                      Date: {appointment.date}
+                    </Text>
+                    <Text
+                      style={{
+                        color: '#175CA4',
+                        fontFamily: 'Poppins-Regular',
+                      }}>
+                      Time: {appointment.startTime} - {appointment.endTime}
+                    </Text>
+                    <Text
+                      style={{
+                        color: '#175CA4',
+                        fontFamily: 'Poppins-Regular',
+                      }}>
+                      Category: {appointment.category}
+                    </Text>
+                    <Text
+                      style={{
+                        color: '#175CA4',
+                        fontFamily: 'Poppins-Regular',
+                      }}>
+                      Appointment with: {appointment.username}
+                    </Text>
+                  </View>
+                </View>
+                ):(
+                  null
+                )}
               </View>
             );
-          })
-        ) : (
-          <View
+          })}
+         {/* ) : (
+           <View
             style={{
               flexDirection: 'row',
               marginTop: 20,
@@ -351,10 +397,10 @@ var sec = new Date().getSeconds();*/
               style={{marginRight: 10, width: 140, height: 150}}
             />
           </View>
-        )}
+        )} */}
       </View>
 
-      {role!=1&&role!=2&&(<View
+      {role!=1 && role!=2&&(<View
         style={{
           flexDirection: 'row',
           marginTop:responsiveHeight(7),

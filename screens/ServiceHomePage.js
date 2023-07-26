@@ -3,15 +3,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions'
 import Home from './homePage';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import More from './More';
 import Settings from './Settings';
 import Book_Appointment from './Book_Appointment';
 import Chat from './Chat';
 import { View,TouchableOpacity } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FirstPage from './FirstPage';
 
-function BottomNavTabs() {
+function ServiceHomePage() {
   const [userRole, setUserRole] = useState(null);
     const Tab = createBottomTabNavigator();
 
@@ -91,31 +91,31 @@ const CustomTabBarButton = ({ iconName, onPress, isFocused }) => (
                             iconName="commenting-o"
                             isFocused={props.state.index === 1}
                         />
-                        <CustomTabBarButton
+                        {/* <CustomTabBarButton
                             onPress={() => props.navigation.navigate('Book_Appointment')}
                             iconName="calendar-plus-o"
                             isFocused={props.state.index === 2}
-                        />
+                        /> */}
                         <CustomTabBarButton
                             onPress={() => props.navigation.navigate('Report')}
                             iconName="file-text-o"
-                            isFocused={props.state.index === 3}
+                            isFocused={props.state.index === 2}
                         />
                         <CustomTabBarButton
-                            onPress={() => props.navigation.navigate('More')}
+                            onPress={() => props.navigation.navigate('FirstPage')}
                             iconName="ellipsis-h"
-                            isFocused={props.state.index === 4}
+                            isFocused={props.state.index === 3}
                         />
                     </View>
                 )}
             >
                 <Tab.Screen name="Home" component={Home} options={{headerShown:false}}/>
                 <Tab.Screen name="Chat" component={Chat} />
-                <Tab.Screen name="Book_Appointment" component={Book_Appointment} options={{headerShown:false}} />
+                {/* <Tab.Screen name="Book_Appointment" component={Book_Appointment} options={{headerShown:false}} /> */}
                 <Tab.Screen name="Report" component={Settings} />
-                <Tab.Screen name="More" component={More} />
+                <Tab.Screen name="FirstPage" component={FirstPage} options={{title: 'More'}}/>
             </Tab.Navigator>
   );
 }
 
-export default BottomNavTabs;
+export default ServiceHomePage;

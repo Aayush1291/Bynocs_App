@@ -73,7 +73,7 @@ const Login = ({ navigation }) => {
             if(user.role!=1)
             navigation.replace('BottomNavTabs');
             else
-            navigation.replace('Firstpage')
+            navigation.replace('ServiceHomePage')
           }, 1000);
         } else {
           Alert.alert('Error', 'Invalid password!');
@@ -100,11 +100,11 @@ const Login = ({ navigation }) => {
       const isLoggedIn = await AsyncStorage.getItem('loggedIn');
       const role = await AsyncStorage.getItem('role');
   
-      if (isLoggedIn === 'true' && role === '1') {
-        navigation.replace('Firstpage');
-      } else if (isLoggedIn === 'true') {
-        navigation.replace('BottomNavTabs');
-      }
+      // if (isLoggedIn === 'true' && role === '1') {
+      //   navigation.replace('Firstpage');
+      // } else if (isLoggedIn === 'true') {
+      //   navigation.replace('BottomNavTabs');
+      // }
     } catch (error) {
       console.log('Error:', error);
     }
