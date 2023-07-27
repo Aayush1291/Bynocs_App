@@ -14,10 +14,7 @@ function AddPage({ handleCloseAddPage }) {
 
   const handleBackPress = () => {
     handleCloseAddPage();
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'SecondPage' }],
-    });
+    navigation.navigate('SecondPage')
   };
   const [showToTimeInput, setShowToTimeInput] = useState(false);
   const [showFromTimeInput, setShowFromTimeInput] = useState(false);
