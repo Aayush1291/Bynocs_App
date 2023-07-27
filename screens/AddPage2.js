@@ -30,10 +30,7 @@ function AddPage2({ handleCloseAddPageThird }) {
 
   const handleBackPress2 = () => {
     handleCloseAddPageThird();
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'ThirdPage' }],
-    });
+    navigation.navigate('ThirdPage')
   };
 
   const [showToTimeInput, setShowToTimeInput] = useState(false);
