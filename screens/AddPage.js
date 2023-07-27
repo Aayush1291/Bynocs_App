@@ -59,7 +59,6 @@ function AddPage({ handleCloseAddPage}) {
  
   const [isToTimePickerVisible, setToPickerVisibility] = useState(false);
  
- 
   useEffect(()=>{
  
     retrieveUserName();
@@ -114,44 +113,59 @@ function AddPage({ handleCloseAddPage}) {
  
  
   const handleFromTime = time => {
- 
-    const dt = new Date(time);
- 
-    const x =dt.toLocaleTimeString().split(' ');
- 
-    const x1 = dt.toLocaleTimeString().split(':')
- 
-    console.log("from time "+x1[0]+':'+x1[1]+' '+x[1]);
- 
-    setFromTime(x1[0]+':'+x1[1]+' '+x[1]);
- 
-    console.log('A date has been picked: ', x);
- 
-    setShowFromTimeInput(true);
- 
-    hideTimePicker();
- 
+    const selectedTime = new Date(time);
+    const x = selectedTime.toLocaleTimeString().split(' ');
+    const x1 = selectedTime.toLocaleTimeString().split(':');
+    const formattedTime = x1[0] + ':' + x1[1] + ' ' + x[1];
+
+    // Convert the selected time to 24-hour format to compare easily
+    const selectedTime24hr = selectedTime.getHours() + (x[1] === 'PM' ? 12 : 0);
+
+    // Convert 9:00 PM to 24-hour format (21:00)
+    const ninePMTime = new Date();
+    ninePMTime.setHours(21, 0, 0, 0);
+
+    if (selectedTime24hr >= 9 && selectedTime <= ninePMTime) {
+      setFromTime(formattedTime);
+      console.log('A date has been picked: ', x);
+      hideTimePicker();
+      // setErrorMessage('');
+    } else {
+      // setErrorMessage('Selected time should be between 9:00 AM and 9:00 PM');
+      Alert.alert("Warning!", 'Selected time should be between 9:00 AM and 9:00 PM');
+      setFromTime(null);
+      hideTimePicker();
+    }
   };
  
  
   const handleToTime = time => {
- 
-    const dt = new Date(time);
- 
-    const x =dt.toLocaleTimeString().split(' ');
- 
-    const x1 = dt.toLocaleTimeString().split(':')
- 
-    console.log("to time "+x1[0]+':'+x1[1]+' '+x[1]);
- 
-    setToTime(x1[0]+':'+x1[1]+' '+x[1]);
- 
-    console.log('A date has been picked: ', x);
- 
-    setShowToTimeInput(true);
- 
-    hideTimePicker();
- 
+    const selectedTime = new Date(time);
+    const x = selectedTime.toLocaleTimeString().split(' ');
+    const x1 = selectedTime.toLocaleTimeString().split(':');
+    const formattedTime = x1[0] + ':' + x1[1] + ' ' + x[1];
+
+    // Convert the selected time to 24-hour format to compare easily
+    const selectedTime24hr = selectedTime.getHours() + (x[1] === 'PM' ? 12 : 0);
+
+    // Convert the fromTime to 24-hour format
+    const fromTime24hr = parseInt(fromTime.split(':')[0]) + (fromTime.split(' ')[1] === 'PM' ? 12 : 0);
+
+    // Convert 9:00 PM to 24-hour format (21:00)
+    const ninePMTime = new Date();
+    ninePMTime.setHours(21, 0, 0, 0);
+
+    if (selectedTime24hr >= fromTime24hr && selectedTime <= ninePMTime) {
+      setToTime(formattedTime);
+      console.log('A date has been picked: ', x);
+      hideTimePicker();
+      // setErrorMessage('');
+    } else {
+      // setErrorMessage('Selected time should be between fromTime and 9:00 PM');
+      Alert.alert('Waning!', 'Selected time should be between From Time and 9:00 PM')
+      setToTime(null);
+      hideTimePicker();
+    }
   };
  
  
@@ -322,7 +336,7 @@ function AddPage({ handleCloseAddPage}) {
         <DateTimePickerModal
  
         isVisible={isFromTimePickerVisible}
- 
+
         mode="time"
  
         onConfirm={handleFromTime}
@@ -330,12 +344,7 @@ function AddPage({ handleCloseAddPage}) {
         onCancel={hideTimePicker}
  
       />
- 
-        {showFromTimeInput && (
- 
           <Text style={styles.text}>{fromTime}</Text>
- 
-        )}
  
       </View>
  
@@ -365,14 +374,8 @@ function AddPage({ handleCloseAddPage}) {
  
         onCancel={hideTimePicker}
  
-      />
- 
-        {showToTimeInput && (
- 
-          <Text style={styles.text}>{toTime}</Text>
- 
-        )}
- 
+      /> 
+          <Text style={styles.text}>{toTime}</Text> 
       </View>
  
     
@@ -556,10 +559,10 @@ marginBottom:200,
  
     fontSize: 16,
  
-    color: 'black',
+    color: '#034694',
  
     marginRight: 10, 
- 
+
   },
  
  
@@ -672,7 +675,7 @@ marginBottom:200,
  
     height: 35,
  
-    color: 'black',
+    color: '#034694',
  
     marginRight: 8,
  
