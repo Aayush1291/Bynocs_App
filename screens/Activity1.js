@@ -40,7 +40,8 @@ const Activity1 = ({navigation}) => {
   const [currentSize, setCurrentSize] = useState(sizes[0]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  const[round2,setRound2]=useState(false)
+  const [round2,setRound2]=useState(false);
+  const [showRound2, setShowRound2]=useState(false);
   const [showExitModal, setShowExitModal] = useState(false); // State variable to control modal visibility
 
   const timerRef = useRef(null);
@@ -61,7 +62,7 @@ const Activity1 = ({navigation}) => {
   };
 
   const handleGameOver = () => {
-    setGameOver(true);
+    setShowRound2(true);
   };
 
   const handleExit = () => {
@@ -75,6 +76,7 @@ const Activity1 = ({navigation}) => {
     setCurrentSize(sizes[0]);
     setScore(0);
     setGameOver(false);
+    setShowRound2(false)
     startTimer();
     generateOptions();
     setRound2(!round2?true:false);
@@ -109,7 +111,7 @@ const Activity1 = ({navigation}) => {
       setCurrentSize(nextSize);
       setScore((prevScore) => prevScore + 10); // Increase score by 10
       if (!round2 && nextSizeIndex === sizes.length - 1) {
-        resetGame(); // Start round 2
+        handleGameOver(); // Start round 2
       }
       if (round2 && nextSizeIndex === sizes.length - 1) {
         handleGameOver(); // Round 2 is over, trigger game over
@@ -133,17 +135,16 @@ const Activity1 = ({navigation}) => {
 
   const CurrentLetterComponent = alphabet[currentLetter];
 
-  if (gameOver) {
+  if (gameOver || showRound2) {
     return (
       <View style={styles.container}>
 <Text style={styles.gameOverText}>
   {round2 ? "Round 2 Over" : "Round 1 Over"}
 </Text>
-
-        <Text>Last Correctly Answered Size: {currentSize}</Text>
-        <Text>Score: {score}</Text>
+        <Text style={{color:'black', fontFamily:'Poppins-Regular'}}>Last Correctly Answered Size: {currentSize}</Text>
+        <Text style={{color:'black', fontFamily:'Poppins-Regular'}}>Score: {score}</Text>
         <TouchableOpacity style={styles.restartButton} onPress={resetGame}>
-          <Text style={styles.restartButtonText}>  {round2 ? "Restart game" : "Round2"}
+          <Text style={styles.restartButtonText}>  {round2 ? "Restart game" : "Round 2"}
 </Text>
         </TouchableOpacity>
       </View>
@@ -213,14 +214,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 20,
+    fontFamily:'Poppins-Regular'
   },
   gameOverText: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color:'black',
+    fontFamily:'Poppins-Regular'
   },
   restartButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#175CA4',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
@@ -230,6 +234,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+    fontFamily:'Poppins-Regular'
   },
   exitButton: {
     backgroundColor: '#175CA4',

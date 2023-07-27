@@ -79,7 +79,7 @@ var sec = new Date().getSeconds();*/
  
     uname = await AsyncStorage.getItem('loggedIn');
  
-    setUserName(uname);
+    // setUserName(uname);
  
   }
 
