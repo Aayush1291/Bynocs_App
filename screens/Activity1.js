@@ -32,7 +32,7 @@ const alphabet = [
 
 const optionSize = 40;
 
-const sizes = [40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 4, 2];
+const sizes = [40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4];
 
 const Activity1 = ({navigation}) => {
   const [currentLetter, setCurrentLetter] = useState(0);
@@ -108,7 +108,15 @@ const Activity1 = ({navigation}) => {
       setCurrentLetter((prevLetter) => (prevLetter + 3) % alphabet.length);
       setCurrentSize(nextSize);
       setScore((prevScore) => prevScore + 10); // Increase score by 10
+      if (!round2 && nextSizeIndex === sizes.length - 1) {
+        resetGame(); // Start round 2
+      }
+      if (round2 && nextSizeIndex === sizes.length - 1) {
+        handleGameOver(); // Round 2 is over, trigger game over
+        return;
+      }
     } else {
+
       if(score>0)
       {
       const sizeIndex = sizes.indexOf(currentSize);
