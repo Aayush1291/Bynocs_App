@@ -185,11 +185,11 @@ const Notifications = ({navigation}) => {
  
                         {/* Date: {formatDate(appointment.date)} */}
  
-                        Date: {appointment.date}
+                        You have successfully booked an appointment with {appointment.serviceName} at {appointment.date} from {appointment.startTime}-{appointment.endTime}
  
                       </Text>
  
-                      <Text
+                      {/* <Text
  
                         style={{
  
@@ -229,7 +229,7 @@ const Notifications = ({navigation}) => {
  
                         Appointment with: {appointment.serviceName}
  
-                      </Text>
+                      </Text> */}
  
                     </View>
  

@@ -157,6 +157,12 @@ const Book_Appointment = () => {
           } else {
             console.error('Failed to book appointment');
           }
+          // setTimeSlotDuration(null);
+          // setServiceName(null);
+          // setselectedStartSlot(null);
+          // setselectedEndSlot(null);
+          // setCategoryData([]);
+          // setDate(null);
         } catch (error) {
           console.error('Error booking appointment:', error);
         }

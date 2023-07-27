@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
  
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image , RefreshControl, ScrollView} from 'react-native';
  
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
  
@@ -15,8 +15,21 @@ const ThirdPage = ({navigation}) => {
  
   const [isDeleteDisabled, setDeleteDisabled] = useState(false); 
  
+  const [isRefreshing, setIsRefreshing] = useState(false);
  
   const url = "https://retoolapi.dev/SGpNie/time";
+
+  const onRefresh = async () => {
+    try {
+      setIsRefreshing(true);
+      // Fetch new data or update data here
+      await fetchData();
+      setIsRefreshing(false);
+    } catch (error) {
+      setIsRefreshing(false);
+      Alert.alert('Error refreshing data:', error);
+    }
+  };
  
  
   const fetchData = async () => {
@@ -116,6 +129,8 @@ const ThirdPage = ({navigation}) => {
  
  
   return (
+    <ScrollView
+    refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
  
     <View style={styles.container}>
  
@@ -175,7 +190,7 @@ const ThirdPage = ({navigation}) => {
  
       )}
  
-      <View
+      {/* <View
  
           style={{
  
@@ -207,10 +222,11 @@ const ThirdPage = ({navigation}) => {
  
           </TouchableOpacity>
  
-        </View>
+        </View> */}
  
     </View>
- 
+
+    </ScrollView>
   );
  
 }

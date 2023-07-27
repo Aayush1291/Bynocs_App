@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
  
-import {View, Text, StyleSheet, TouchableOpacity, Image, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, RefreshControl, Alert, ScrollView} from 'react-native';
  
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
  
@@ -18,8 +18,21 @@ const SecondPage = ({navigation}) => {
  
   const [isDeleteDisabled, setDeleteDisabled] = useState(false);
  
+  const [isRefreshing, setIsRefreshing] = useState(false);
  
   const url = 'https://retoolapi.dev/D3HKGH/data';
+
+  const onRefresh = async () => {
+    try {
+      setIsRefreshing(true);
+      // Fetch new data or update data here
+      await fetchData();
+      setIsRefreshing(false);
+    } catch (error) {
+      setIsRefreshing(false);
+      Alert.alert('Error refreshing data:', error);
+    }
+  };
  
  
   const fetchData = async () => {
@@ -97,7 +110,8 @@ const SecondPage = ({navigation}) => {
  
  
   return (
- 
+    <ScrollView
+    refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
     <View style={styles.container}>
  
       {error ? (
@@ -166,7 +180,7 @@ const SecondPage = ({navigation}) => {
  
       )}
  
-        <View
+        {/* <View
  
           style={{
  
@@ -198,10 +212,10 @@ const SecondPage = ({navigation}) => {
  
           </TouchableOpacity>
  
-        </View>
+        </View> */}
  
       </View>
- 
+      </ScrollView>
   );
  
 };

@@ -33,7 +33,7 @@ function FirstPage({navigation}) {
  
           style={{marginLeft: 10}}
  
-          onPress={() => navigation.replace('SecondPage')}
+          onPress={() => navigation.navigate('SecondPage')}
  
         />
  
@@ -56,7 +56,7 @@ function FirstPage({navigation}) {
  
           style={{marginLeft: 10}}
  
-          onPress={() => navigation.replace('ThirdPage')}
+          onPress={() => navigation.navigate('ThirdPage')}
  
         />
  

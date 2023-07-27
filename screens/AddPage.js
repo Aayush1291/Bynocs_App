@@ -29,13 +29,15 @@ function AddPage({ handleCloseAddPage}) {
  
     handleCloseAddPage();
  
-    navigation.reset({
+    // navigation.reset({
  
-      index: 0,
+    //   index: 0,
  
-      routes: [{ name: 'SecondPage' }],
+    //   routes: [{ name: 'SecondPage' }],
  
-    });
+    // });
+
+    navigation.navigate('SecondPage');
  
   };
  
@@ -230,7 +232,7 @@ function AddPage({ handleCloseAddPage}) {
  
     if (response.ok) {
  
-        Alert.alert('Time slot successfully added!');
+        Alert.alert('Time slot successfully added!', 'Refresh the page to see schedule.');
  
      
  

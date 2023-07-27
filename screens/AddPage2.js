@@ -108,7 +108,7 @@ function AddPage2({ handleCloseAddPageThird }) {
   })
   .then((response) => {
     if (response.ok) {
-        Alert.alert('Time off successfully added!');
+        Alert.alert('Time off successfully added!', 'Refresh the page to see schedule.');
      
       } else {
         Alert.alert('Error');
