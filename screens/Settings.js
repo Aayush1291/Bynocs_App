@@ -4,9 +4,13 @@ import React from 'react'
 const Settings = () => {
   return (
     <View>
-      <Text>Settings</Text>
+      <Text>Report</Text>
     </View>
   )
 }
 
 export default Settings
+
+
+
+
