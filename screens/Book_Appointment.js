@@ -71,6 +71,9 @@ const Book_Appointment = () => {
   const [morningSlots, setmorningSlots] = useState([]);
   const [daySlots, setdaySlots] = useState([]);
   const [nightSlots, setnightSlots] = useState([]);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+
   let username = '';
   let email = '';
   let startTimeUser;
@@ -91,16 +94,15 @@ const Book_Appointment = () => {
   const handleSubmission = async () => {
     username = await AsyncStorage.getItem('UserName');
     email = await AsyncStorage.getItem('Email');
-    // await AsyncStorage.setItem("Email","harshmaghnani@gmail.com");
-    console.log('HANDLE SUBMISSION');
+    // console.log('HANDLE SUBMISSION');
     const currentDate = new Date();
     const currentTime = new Date();
 
     const date = currentDate.toLocaleDateString();
     const time = currentTime.toLocaleTimeString();
 
-    console.log(`Date: ${date}`);
-    console.log(`Time: ${time}`);
+    // console.log(`Date: ${date}`);
+    // console.log(`Time: ${time}`);
 
     if (
       !serviceName ||
@@ -207,9 +209,9 @@ const Book_Appointment = () => {
 
       if (response.ok) {
         const responseData = await response.text();
-        console.log('Raw Response:', responseData);
+        // console.log('Raw Response:', responseData);
       } else {
-        console.log('Error sending test notification.');
+        // console.log('Error sending test notification.');
       }
     } catch (error) {
       console.error('Error sending test notification:', error);
@@ -255,7 +257,7 @@ const Book_Appointment = () => {
 
   const fetchApiContent = async () => {
     try {
-      const response = await fetch('https://retoolapi.dev/U8SZex/data');
+      const response = await fetch('https://retoolapi.dev/D3HKGH/data');
       const data = await response.json();
       setApiContent(data);
 
@@ -290,23 +292,19 @@ const Book_Appointment = () => {
   }
 
   const findStartAndEndTime = () => {
-    console.log("abc", selDay)
-    const selection = data.find((element)=> element.weekday===selDay && element.username===names);
-    console.log("dummy", selection)
+    const selection = apiContent.find((element)=> element.selectedWeekday===selDay && element.username===names);
+    console.log("firststart");
+    console.log("selection", selection);
     if(selection){
-      console.log("day is in api")
-      console.log("selection start",selection.start)
-      const { start, end } = selection;
-      console.log('Start Time:', start);
-      console.log('End Time:', end);
-      startTimeUser = start;
-      startEndUser = end;
-      console.log("FIND : ")
-      console.log("START : ",startTimeUser);
-      console.log("END : ",startEndUser);
+      const start = selection.fromTime;
+      setStartTime(start)
+      const end = selection.toTime;
+      setEndTime(end)
+      console.log("start", start);
+      console.log("end", end);
        timeSlots=[];
        timeSlots = generateTimeSlots(start,end, timeSlotDuration);
-       console.log(timeSlots);
+      //  console.log(timeSlots);
        timedivision();
     }
     else{
@@ -323,12 +321,13 @@ const Book_Appointment = () => {
 
   function durationChange(d, val) {
     setCategoryData(val);
-    console.log('DURATION : ', d);
-    console.log('user start', startTime);
+    // console.log('DURATION : ', d);
+    // console.log('user start', startTime);
     // console.log("user end", startEndUser);
     durations = d;
     setTimeSlotDuration(durations);
     timeSlots = [];
+    console.log("start time", startTime, "end time", endTime);
     timeSlots = generateTimeSlots(startTime, endTime, durations);
     console.log('ts', timeSlots);
     timedivision();
@@ -338,8 +337,9 @@ const Book_Appointment = () => {
   const dummyfunc = (name)=>{
     names=name;
     setServiceName(name);
-    console.log(serviceName);
-    console.log("dummy func", selDay)
+    // console.log(serviceName);
+    // console.log("dummy func", selDay)
+    console.log("new name selected");
     findStartAndEndTime();
   }
 
@@ -347,10 +347,12 @@ const Book_Appointment = () => {
 
   let selDay = selectDay;
 
-  const startTime = apiContent[0].start;
-  const endTime = apiContent[0].end;
+  // const startTime = apiContent[0].fromTime;
+  // console.log("start time", startTime)
+  // const endTime = apiContent[0].toTime;
+  // console.log("end time", endTime)
 
-  let timeSlots = generateTimeSlots(startTime, endTime, timeSlotDuration);
+  // let timeSlots = generateTimeSlots(startTime, endTime, timeSlotDuration);
 
 
   //for dividing the time into morning, day, night
@@ -383,7 +385,8 @@ const Book_Appointment = () => {
   function newFunc (newD){
     setselectDay(newD);
     selDay=newD;
-    console.log("new day", selDay);
+    // console.log("new day", selDay);
+    console.log("new day selected");
     findStartAndEndTime();
   }
 
