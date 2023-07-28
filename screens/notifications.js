@@ -56,7 +56,11 @@ const Notifications = ({navigation}) => {
  
   }, []);
  
- 
+
+  function formatDate (dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
  
   const retrieveUserName = async () => {
  
@@ -106,7 +110,7 @@ const Notifications = ({navigation}) => {
  
     try {
  
-      const response = await fetch(`https://retoolapi.dev/qHoAoQ/data`);
+      const response = await fetch(`https://retoolapi.dev/Xim6Z4/data`);
  
       const jsonData = await response.json();
  
@@ -185,7 +189,7 @@ const Notifications = ({navigation}) => {
  
                         {/* Date: {formatDate(appointment.date)} */}
  
-                        You have successfully booked an appointment with {appointment.serviceName} at {appointment.date} from {appointment.startTime}-{appointment.endTime}
+                        You have successfully booked an appointment with {appointment.serviceName} at {formatDate(appointment.date)} from {appointment.startTime}-{appointment.endTime}
  
                       </Text>
  
@@ -271,7 +275,7 @@ const Notifications = ({navigation}) => {
  
                       }}
  
-                      >{appointment.username} has booked an appointment with you, at {appointment.date}, from {appointment.startTime} - {appointment.endTime}. </Text>
+                      >{appointment.username} has booked an appointment with you, at {formatDate(appointment.date)}, from {appointment.startTime} - {appointment.endTime}. </Text>
  
                     </View>
  

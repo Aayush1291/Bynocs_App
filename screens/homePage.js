@@ -177,7 +177,7 @@ var sec = new Date().getSeconds();*/
  
     try {
  
-      const response = await fetch(`https://retoolapi.dev/qHoAoQ/data`);
+      const response = await fetch(`https://retoolapi.dev/Xim6Z4/data`);
  
       const jsonData = await response.json();
  
@@ -209,16 +209,11 @@ var sec = new Date().getSeconds();*/
     }
   };
  
-  function formatDate(dateString) {
- 
-    const date = new Date(dateString);
- 
-    const options = {day: 'numeric', month: 'short', year: 'numeric'};
- 
- 
-    return date.toLocaleDateString('en-IN', options);
- 
-  }
+  function formatDate (dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   const renderProfilePhotoOrIcon = () => {
     if (profilePhoto) {
       return (
@@ -623,7 +618,7 @@ var sec = new Date().getSeconds();*/
  
                         {/* Date: {formatDate(appointment.date)} */}
  
-                        Date: {appointment.date}
+                        Date: {formatDate(appointment.date)}
  
                       </Text>
  
@@ -711,7 +706,7 @@ var sec = new Date().getSeconds();*/
  
                       {/* Date: {formatDate(appointment.date)} */}
  
-                      Date: {appointment.date}
+                      Date: {formatDate(appointment.date)}
  
                     </Text>
  

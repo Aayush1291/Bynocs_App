@@ -69,13 +69,11 @@ const Book_Appointment = () => {
   const [selectDay, setselectDay] = useState('');
 
   const [morningSlots, setmorningSlots] = useState([]);
-  const [afternoonSlots, setafternoonSlots] = useState([]);
-  const [eveningSlots, seteveningSlots] = useState([]);
+  const [daySlots, setdaySlots] = useState([]);
+  const [nightSlots, setnightSlots] = useState([]);
   let username = '';
   let email = '';
   let startTimeUser;
-  let endTimeUser;
-  // let selectrole = 1;
 
   function formatDate(dateString) {
     const parts = dateString.split('-');
@@ -118,9 +116,7 @@ const Book_Appointment = () => {
         Alert.alert('Error', 'Fields not found!');
       } else {
         try {
-          // let formattedDate = formatDate(selectedDate);
-          console.log('DATE :', selectedDate);
-          const response = await fetch('https://retoolapi.dev/qHoAoQ/data', {
+          const response = await fetch('https://retoolapi.dev/Xim6Z4/data', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -132,7 +128,7 @@ const Book_Appointment = () => {
               endTime: selectedEndSlot,
               startTime: selectedStartSlot,
               category: categoryData,
-              date: date,
+              date: selectedDate,
             }),
           });
           if (response.ok) {
@@ -157,16 +153,16 @@ const Book_Appointment = () => {
           } else {
             console.error('Failed to book appointment');
           }
-          // setTimeSlotDuration(null);
-          // setServiceName(null);
-          // setselectedStartSlot(null);
-          // setselectedEndSlot(null);
-          // setCategoryData([]);
-          // setDate(null);
         } catch (error) {
           console.error('Error booking appointment:', error);
         }
       }
+      // setTimeSlotDuration(' ');
+      // setServiceName(' ');
+      // setselectedStartSlot(' ');
+      // setselectedEndSlot(' ');
+      // setCategoryData(' ');
+      // setDate(' ');
     }
   };
   const subscribeToUserTopic = async () => {
@@ -316,26 +312,9 @@ const Book_Appointment = () => {
     else{
       console.log("No item");
       setmorningSlots([]);
-      setafternoonSlots([]);
-      seteveningSlots([]);
+      setdaySlots([]);
+      setnightSlots([]);
     }
-    // if (selectedRoleData) {
-    //   // The selected role is found in the data array
-    //   const { start, end } = selectedRoleData;
-    //   console.log('Start Time:', start);
-    //   console.log('End Time:', end);
-    //   startTimeUser = start;
-    //   startEndUser = end;
-    //   console.log("FIND : ")
-    //   console.log("START : ",startTimeUser);
-    //   console.log("END : ",startEndUser);
-    //    timeSlots=[];
-    //    timeSlots = generateTimeSlots(start,end, timeSlotDuration);
-    //    console.log(timeSlots);
-    //    timedivision();
-    // } else {
-    //   console.log('Selected role not found in the data array');
-    // }
   };
  
   let names ;
@@ -357,32 +336,24 @@ const Book_Appointment = () => {
 
 
   const dummyfunc = (name)=>{
-    // console.log(name);
     names=name;
-    // console.log(name);
     setServiceName(name);
-    // console.log("Names",names);
     console.log(serviceName);
     console.log("dummy func", selDay)
     findStartAndEndTime();
-    // Call the function to find start and end times
   }
-  // console.log(selectedDate);
-  // console.log(selectDay);
+
+  console.log("SELECTED DATE", selectedDate);
 
   let selDay = selectDay;
 
-  // Extract start and end time from the API content
   const startTime = apiContent[0].start;
   const endTime = apiContent[0].end;
-  // const weekDay = apiContent[0].weekday;
-  // console.log(weekDay);
-
 
   let timeSlots = generateTimeSlots(startTime, endTime, timeSlotDuration);
 
 
-  //for dividing the time into morning, afternoon, evening
+  //for dividing the time into morning, day, night
   function timedivision(){
     let morning=[];
     let day=[];
@@ -398,18 +369,16 @@ const Book_Appointment = () => {
       }
     });
     setmorningSlots(morning);
-    setafternoonSlots(day);
-    seteveningSlots(night);
+    setdaySlots(day);
+    setnightSlots(night);
   }
  
   // timedivision();
 
 
   function returntime(e, e1) {
-    // console.log(e);
     setselectedStartSlot(e1);
     setselectedEndSlot(e);
-    // console.log(selectedEndSlot);
   }
   function newFunc (newD){
     setselectDay(newD);
@@ -418,7 +387,6 @@ const Book_Appointment = () => {
     findStartAndEndTime();
   }
 
-  // console.log(serviceName);
  
   return (
     <ScrollView>
@@ -509,20 +477,6 @@ const Book_Appointment = () => {
           </View>
         )
           : null}
-        {/* <View style={{ borderRadius: 15, marginTop: 20 }}>
-          <TouchableOpacity onPress={() => durationChange(60)} style={{ borderWidth: 1, borderColor: 'black', marginBottom: 10 }}>
-            <Text style={{ color: 'black' }}>60 mins</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => durationChange(45)} style={{ borderWidth: 1, borderColor: 'black', marginBottom: 10 }}>
-            <Text style={{ color: 'black' }}>45 mins</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => durationChange(30)} style={{ borderWidth: 1, borderColor: 'black', marginBottom: 10 }}>
-            <Text style={{ color: 'black' }}>30 mins</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => durationChange(15)} style={{ borderWidth: 1, borderColor: 'black', marginBottom: 10 }}>
-            <Text style={{ color: 'black' }}>15 mins</Text>
-          </TouchableOpacity>
-        </View> */}
         <Text
           style={{
             color: 'black',
@@ -919,7 +873,7 @@ const Book_Appointment = () => {
                 }}
               />
               <View style={{ flexDirection: 'row', flex: 1, flexWrap: 'wrap' }}>
-                {afternoonSlots.map((slot, index) => {
+                {daySlots.map((slot, index) => {
                   return (
                     <TouchableOpacity
                       key={index}
@@ -1015,7 +969,7 @@ const Book_Appointment = () => {
                 }}
               />
               <View style={{ flexDirection: 'row', flex: 1, flexWrap: 'wrap' }}>
-                {eveningSlots.map((slot, index) => {
+                {nightSlots.map((slot, index) => {
                   return (
                     <TouchableOpacity
                       key={index}
