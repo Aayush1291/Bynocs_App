@@ -84,7 +84,7 @@ const { height, width } = Dimensions.get('window');
                     >
                       {item.en.blogsAndResearch.longdesc}
                     </Text>
-                    <Text style={styles.Blogs_Pdf} onPress={() => { Linking.openURL(item.en.blogsAndResearch.pdf) }}>Download Pdf</Text>
+                    <Text style={styles.Blogs_Pdf} onPress={() => { Linking.openURL(item.en.blogsAndResearch.pdf) }}>View Document</Text>
                   </ScrollView>
                 </View>
               ) : (
@@ -95,7 +95,7 @@ const { height, width } = Dimensions.get('window');
                     >
                       {item.fr.blogsAndResearch.longdesc}
                     </Text>
-                    <Text style={styles.Blogs_Pdf} onPress={() => { Linking.openURL(item.fr.blogsAndResearch.pdf) }}>Download Pdf</Text>
+                    <Text style={styles.Blogs_Pdf} onPress={() => { Linking.openURL(item.fr.blogsAndResearch.pdf) }}>View Document</Text>
                   </ScrollView>
                 </View>
               )
