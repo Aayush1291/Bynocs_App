@@ -37,7 +37,7 @@ function FirstPage({navigation}) {
  
         />
  
-        <Text style={{fontSize: 35, marginLeft: 40, color: 'black'}}>
+        <Text style={{fontSize: 35, marginLeft: 40, color: 'black'}} onPress={()=>navigation.navigate('SecondPage')}>
  
           Visiting Time
  
@@ -46,7 +46,7 @@ function FirstPage({navigation}) {
       </View>
  
  
-      <View style={{flexDirection: 'row', marginTop: 20}}>
+{   /*   <View style={{flexDirection: 'row', marginTop: 20}}>
  
         <User
  
@@ -60,13 +60,13 @@ function FirstPage({navigation}) {
  
         />
  
-        <Text style={{fontSize: 35, marginLeft: 40, color: 'black'}}>
+ <Text style={{fontSize: 35, marginLeft: 40, color: 'black'}}>
  
           Time Off
  
-        </Text>
+  </Text>*
  
-      </View>
+  </View>*/}
  
       <View style={{flexDirection: 'row', marginTop: 20}}>
  

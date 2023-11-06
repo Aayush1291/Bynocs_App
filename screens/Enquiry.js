@@ -5,7 +5,7 @@ import { Calendar } from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import styles from '../styles/styles';
-import CountryPicker from 'react-native-country-picker-modal';
+//import CountryPicker from 'react-native-country-picker-modal';
 
 const Enquiry = () => {
     const [name, setName] = useState('');
@@ -32,10 +32,10 @@ const Enquiry = () => {
         setBirthDate(formattedDate);
         setIsCalendarVisible(false);
     };
-    const handleCountrySelect = (country) => {
+{  /*  const handleCountrySelect = (country) => {
         setCountry(country.cca2);
         console.log('Selected Country:', country.cca2); // Print cca2 in the console
-    };
+    };*/}
     const handleSubmission = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!name || !birthDate || !gender || !contactNumber || !email || !country || !city || !comments) {
@@ -191,21 +191,12 @@ const Enquiry = () => {
 
             <View style={{ top: responsiveHeight(2.3) }}>
                 <Text style={styles.Enquiry_text_afterContact}>Country</Text>
-                <TextInput style={styles.Enquiry_textinput_afterContact} editable={false}/>
-                <View style={{marginLeft:responsiveWidth(5)}}>
-                <CountryPicker
-        withFilter
-        withFlag
-        withCountryNameButton
-        withAlphaFilter
-        //withCallingCode
-        withEmoji
-        countryCode={country}
-        onSelect={(country) => setCountry(country.cca2)}
-        visible={false}
-        withFlagButton={false}
-    />
-    </View>
+                <TextInput
+                    style={styles.Enquiry_textinput_afterContact}
+                    //   placeholder="Enter your contact number"
+                    value={country}
+                    onChangeText={setCountry}
+                />
             </View>
             <View style={{ top: responsiveHeight(2.3) }}>
                 <Text style={styles.Enquiry_text_afterContact}>City</Text>

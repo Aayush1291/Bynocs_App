@@ -66,7 +66,7 @@ const CustomTabBarButton = ({ iconName, onPress, isFocused }) => (
                     showLabel: false, // Hide the label of the active tab
                     style: {
                         borderTopWidth: 0,
-                        elevation: 10,
+                        elevation: 0,
                         
                     },
                     tabStyle: {

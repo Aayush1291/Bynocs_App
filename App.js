@@ -27,7 +27,9 @@ import AddPage2 from './screens/AddPage2';
 import Activity2 from './screens/Activity2';
 import ServiceHomePage from './screens/ServiceHomePage';
 const stack = createNativeStackNavigator();
-const App = () => {
+import EligibilityCheck from './screens/eligibilityCheck';
+import AssessmentForm from './screens/assessmentForm';
+const App = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
@@ -226,7 +228,36 @@ const App = () => {
               ),
             }}
           />
-          <stack.Screen
+<stack.Screen
+  name="EligibilityCheck"
+  component={EligibilityCheck}
+  options={({ navigation }) => ({
+    headerStyle: { backgroundColor: '#175ca4' },
+    headerTintColor: 'white',
+    headerShown: true,
+    title: 'Eligibility Check',
+    headerRight: () => (
+      <TouchableOpacity
+        style={{ marginRight: 10 }}
+        onPress={() => navigation.navigate("AssessmentForm")}
+      >
+        <Text style={{ color: 'white', fontSize: 20 }}>ADD</Text>
+      </TouchableOpacity>
+    ),
+  })}
+/>
+           <stack.Screen  
+                    name="AssessmentForm"
+                    
+                    component={AssessmentForm}
+                    
+                    options={{
+                      headerStyle: {backgroundColor: '#175ca4'},
+                      headerTintColor: 'white',
+                      headerShown:true,
+                      title: 'Clinical Assessment Record',
+                    }}/>
+    {/*<stack.Screen
             name="ThirdPage"
             component={ThirdPage}
             options={{
@@ -240,7 +271,8 @@ const App = () => {
                 </TouchableOpacity>
               ),
             }}
-          />
+          />*/}
+          
         </stack.Group>
       </stack.Navigator>
       <Modal

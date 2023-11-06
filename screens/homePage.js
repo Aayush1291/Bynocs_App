@@ -362,7 +362,7 @@ var sec = new Date().getSeconds();*/
  
       </View>
  
-      {/* <View
+      <View
  
         style={{
  
@@ -452,7 +452,8 @@ var sec = new Date().getSeconds();*/
  
               fontFamily: 'Poppins-Regular',
  
-            }}>
+            }}
+            onPress={()=>{navigation.navigate('EligibilityCheck')}}>
  
             Check now
  
@@ -460,7 +461,7 @@ var sec = new Date().getSeconds();*/
  
         </TouchableOpacity>
  
-      </View> */}
+      </View>
  
       <View
  
