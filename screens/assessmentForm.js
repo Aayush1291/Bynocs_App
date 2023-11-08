@@ -18,7 +18,11 @@ const AssessmentForm = () => {
   const[diagnosis,setDiagnosis]=useState("");
   const[history,setHistory]=useState("")
   const [genderIndex, setGenderIndex] = useState(-1);
-  const [checked, setChecked] = useState(false);
+  const [checked1, setChecked1] = useState(false);
+    const [checked2, setChecked2] = useState(false);
+  const [checked3, setChecked3] = useState(false);
+  const [checked4, setChecked4] = useState(false);
+
   const [obejctive, setobejctive] = useState(-1);
   const [sphr,setSPHr]=useState('');
   const [sphl,setSPHl]=useState('');
@@ -56,8 +60,18 @@ const[streerdr,setstredr]=useState("");
 const[typestrenr,settypestrenr]=useState("");
 const[typestredr,settypestredr]=useState("");
 const[comments,setComments]=useState("")
+  const [bcvaright,setBcvaRight]=useState('');
+  const [bcvaleft,setBcvaLeft]=useState('');
+const [isODDropdownVisible, setIsODDropdownVisible] = useState(false);
+const [isOSDropdownVisible, setIsOSDropdownVisible] = useState(false);
   const toggleDropdown = () => {
     setIsBottomSheetVisible(!isBottomSheetVisible);
+  };
+    const toggleOdDropdown = () => {
+    setIsODDropdownVisible(!isODDropdownVisible);
+  };
+    const toggleOsDropdown = () => {
+    setIsOSDropdownVisible(!isOSDropdownVisible);
   };
   const data = [
     {key:'1', value:'Amblyopia with intermittent strabismus'},
@@ -111,8 +125,17 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
   const toggleCalendar = () => {
     setIsCalendarVisible(!isCalendarVisible);
   };
-  const toggleSwitch = () => {
-    setChecked(!checked);
+  const toggleSwitch1 = () => {
+    setChecked1(!checked1);
+  };
+    const toggleSwitch2 = () => {
+    setChecked2(!checked2);
+  };
+    const toggleSwitch3 = () => {
+    setChecked3(!checked3);
+  };
+    const toggleSwitch4 = () => {
+    setChecked4(!checked4);
   };
   const handleDiagnosisChange = (text) => {
     setDiagnosis(text);
@@ -343,40 +366,40 @@ style={{backgroundColor: 'white'}}
               <View style={styles.horizontalLine} />
               <View style={styles.switchContainer}>
           <Switch
-            value={checked}
-            onValueChange={toggleSwitch}
+            value={checked1}
+            onValueChange={toggleSwitch1}
             trackColor={{true:'#175CA4'}}
-            thumbColor={checked?'white':'#175CA4'}
+            thumbColor={checked1?'white':'#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently wearing a patch?</Text>
         </View>
         <View style={styles.horizontalLine} />
         <View style={styles.switchContainer}>
           <Switch
-            value={checked}
-            onValueChange={toggleSwitch}
+            value={checked2}
+            onValueChange={toggleSwitch2}
             trackColor={{true:'#175CA4'}}
-            thumbColor={checked?'white':'#175CA4'}
+            thumbColor={checked2?'white':'#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently wearing a filter?</Text>
         </View>
         <View style={styles.horizontalLine} />
         <View style={styles.switchContainer}>
           <Switch
-            value={checked}
-            onValueChange={toggleSwitch}
+            value={checked3}
+            onValueChange={toggleSwitch3}
             trackColor={{true:'#175CA4'}}
-            thumbColor={checked?'white':'#175CA4'}
+            thumbColor={checked3?'white':'#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently using a prism?</Text>
         </View>
         <View style={styles.horizontalLine} />
         <View style={styles.switchContainer}>
           <Switch
-            value={checked}
-            onValueChange={toggleSwitch}
+            value={checked4}
+            onValueChange={toggleSwitch4}
             trackColor={{true:'#175CA4'}}
-            thumbColor={checked?'white':'#175CA4'}
+            thumbColor={checked4?'white':'#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently wearing glasses or contact lenses with the best possible correction?</Text>
         </View>
@@ -551,34 +574,34 @@ style={{backgroundColor: 'white'}}
       <View style={styles.inputContainer_two}>
           <TextInput
             style={styles.input_two}
-            value={patientType}
-            onFocus={toggleDropdown}
+            value={bcvaright}
+            onFocus={toggleOdDropdown}
           />
 
-          <Text style={patientType ? styles.floatingLabel : styles.label}>
+          <Text style={bcvaright ? styles.floatingLabel : styles.label}>
           OD (Right Eye) <Text style={{ color: 'red' }}>*</Text>
           </Text>
           <TextInput
             style={styles.input_two}
-            value={patientType}
-            onFocus={toggleDropdown}
+            value={bcvaleft}
+            onFocus={toggleOsDropdown}
           />
-          <Text style={patientType ? styles.floatingLabel_two : styles.label_two}>
+          <Text style={bcvaleft ? styles.floatingLabel_two : styles.label_two}>
             OS (Left Eye) <Text style={{ color: 'red' }}>*</Text>
           </Text>
         </View>
 
         <BottomSheet
-          isVisible={isBottomSheetVisible}
-          onBackdropPress={() => setIsBottomSheetVisible(false)}
+          isVisible={isODDropdownVisible}
+          onBackdropPress={() => setIsODDropdownVisible(false)}
         >
           <View style={styles.dropdownContainer}>
             {od.map(item => (
               <TouchableOpacity
                 key={item.key}
                 onPress={() => {
-                  setPatientType(item.value);
-                  setIsBottomSheetVisible(false);
+                  setBcvaRight(item.value);
+                  setIsODDropdownVisible(false);
                 }}
               >
                 <Text style={styles.dropdownItem}>{item.value}</Text>
@@ -587,16 +610,16 @@ style={{backgroundColor: 'white'}}
           </View>
         </BottomSheet>
         <BottomSheet
-          isVisible={isBottomSheetVisible}
-          onBackdropPress={() => setIsBottomSheetVisible(false)}
+          isVisible={isOSDropdownVisible}
+          onBackdropPress={() => setIsOSDropdownVisible(false)}
         >
           <View style={styles.dropdownContainer}>
             {os.map(item => (
               <TouchableOpacity
                 key={item.key}
                 onPress={() => {
-                  setPatientType(item.value);
-                  setIsBottomSheetVisible(false);
+                  setBcvaLeft(item.value);
+                  setIsOSDropdownVisible(false);
                 }}
               >
                 <Text style={styles.dropdownItem}>{item.value}</Text>
