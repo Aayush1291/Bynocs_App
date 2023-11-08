@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Text, TextInput, View, StyleSheet, ScrollView,Modal,TouchableOpacity } from 'react-native';
-import { responsiveWidth } from "react-native-responsive-dimensions";
-import { Calendar } from 'react-native-calendars';
+import React, {useState} from 'react';
+import {Text, TextInput, View, StyleSheet, ScrollView, Modal, TouchableOpacity} from 'react-native';
+import { responsiveFontSize, responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
+import {Calendar} from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { BottomSheet,ButtonGroup,Switch} from '@rneui/themed';
+import {BottomSheet, ButtonGroup, Switch} from '@rneui/themed';
 const AssessmentForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -224,9 +224,12 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
     setComments(text);
   };
   return (
-<ScrollView keyboardShouldPersistTaps="handled">
+<ScrollView 
+keyboardShouldPersistTaps="handled"
+style={{backgroundColor: 'white'}}
+>
     <View style={styles.container}>
-      <Text>DOCTOR DETAILS</Text>
+      <Text style={styles.heading}>DOCTOR DETAILS</Text>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -251,7 +254,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         />
         <Text style={email ? styles.floatingLabel : styles.label}>Email <Text style={{color:'red'}}>*</Text></Text>
       </View>
-      <Text>PATIENT DETAILS</Text>
+      <Text style={styles.heading}>PATIENT DETAILS</Text>
             <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -327,18 +330,23 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
           </View>
         </BottomSheet>
       <View style={styles.horizontalLine} />
-      <Text>Gender</Text>
+      <Text style={styles.heading}>Gender</Text>
         <ButtonGroup
           buttons={genderButtons}
           selectedIndex={genderIndex}
           onPress={(selectedIndex) => setGenderIndex(selectedIndex)}
-          containerStyle={styles.genderContainer}
+          containerStyle={styles.buttonGroupContainer}
+          selectedButtonStyle={styles.selectedButtonStyle}
+          textStyle={styles.textStyle}
+          innerBorderStyle={styles.innerBorderStyle}
         />
               <View style={styles.horizontalLine} />
               <View style={styles.switchContainer}>
           <Switch
             value={checked}
             onValueChange={toggleSwitch}
+            trackColor={{true:'#175CA4'}}
+            thumbColor={checked?'white':'#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently wearing a patch?</Text>
         </View>
@@ -347,6 +355,8 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
           <Switch
             value={checked}
             onValueChange={toggleSwitch}
+            trackColor={{true:'#175CA4'}}
+            thumbColor={checked?'white':'#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently wearing a filter?</Text>
         </View>
@@ -355,6 +365,8 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
           <Switch
             value={checked}
             onValueChange={toggleSwitch}
+            trackColor={{true:'#175CA4'}}
+            thumbColor={checked?'white':'#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently using a prism?</Text>
         </View>
@@ -363,6 +375,8 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
           <Switch
             value={checked}
             onValueChange={toggleSwitch}
+            trackColor={{true:'#175CA4'}}
+            thumbColor={checked?'white':'#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently wearing glasses or contact lenses with the best possible correction?</Text>
         </View>
@@ -385,15 +399,18 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         />
         <Text style={history ? styles.floatingLabel : styles.label}>Treatment History <Text style={{color:'red'}}>*</Text></Text>
       </View>
-      <Text>Gender</Text>
+      <Text style={styles.heading}>Obejctive Refraction</Text>
         <ButtonGroup
           buttons={obejctiveRefraction}
           selectedIndex={obejctive}
           onPress={(selectedIndex) => setobejctive(selectedIndex)}
-          containerStyle={styles.genderContainer}
+          containerStyle={styles.buttonGroupContainer}
+          selectedButtonStyle={styles.selectedButtonStyle}
+          textStyle={styles.textStyle}
+          innerBorderStyle={styles.innerBorderStyle}
         />
               <View style={styles.horizontalLine} />
-              <Text>SPH</Text>
+              <Text style={styles.heading}>SPH</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -409,7 +426,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         />
         <Text style={sphl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
-      <Text>CYL</Text>
+      <Text style={styles.heading}>CYL</Text>
       <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -425,7 +442,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         />
         <Text style={cyll ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
-      <Text>AXIS</Text>
+      <Text style={styles.heading}>AXIS</Text>
       <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -442,8 +459,8 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         <Text style={axisl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.horizontalLine} />
-      <Text style={{fontWeight:'bold'}}>Subjective Refraction <Text style={{color:'red'}}>*</Text></Text>
-      <Text>SPH</Text>
+      <Text style={styles.heading1}>Subjective Refraction <Text style={{color:'red'}}>*</Text></Text>
+      <Text style={styles.heading}>SPH</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -459,7 +476,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         />
         <Text style={srsphl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
-      <Text>CYL</Text>
+      <Text style={styles.heading}>CYL</Text>
       <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -475,7 +492,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         />
         <Text style={srcyll ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
-      <Text>AXIS</Text>
+      <Text style={styles.heading}>AXIS</Text>
       <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -492,17 +509,20 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         <Text style={sraxisl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.horizontalLine} />
-      <Text>BCVA Unit<Text style={{color: 'red'}}>*</Text></Text>
+      <Text style={styles.heading}>BCVA Unit<Text style={{color: 'red'}}>*</Text></Text>
         <ButtonGroup
           buttons={Bcva}
           selectedIndex={bcva}
           onPress={(selectedIndex) => setBcva(selectedIndex)}
-          containerStyle={styles.genderContainer}
+          containerStyle={styles.buttonGroupContainer}
+          selectedButtonStyle={styles.selectedButtonStyle}
+          textStyle={styles.textStyle}
+          innerBorderStyle={styles.innerBorderStyle}
         />
               <View style={styles.horizontalLine} />
 
-              <Text style={{fontWeight:'bold'}}>Visual Acuity <Text style={{color:'red'}}>*</Text></Text>
-      <Text>BCVA</Text>
+              <Text style={styles.heading1}>Visual Acuity <Text style={{color:'red'}}>*</Text></Text>
+      <Text style={styles.heading}>BCVA</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -586,8 +606,8 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         </BottomSheet>
       {/* yah tak*/}
       <View style={styles.horizontalLine} />
-      <Text style={{fontWeight:'bold'}}>Additional Refractive Parameters</Text>
-      <Text>Prism</Text>
+      <Text style={styles.heading1}>Additional Refractive Parameters</Text>
+      <Text style={styles.heading}>Prism</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -604,14 +624,14 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         <Text style={prisml ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye)</Text>
       </View>
       
-      <Text>Base</Text>
+      <Text style={styles.heading}>Base</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
           onChangeText={handleBaser}
           value={baser}
         />
-        <Text style={baser ? styles.floatingLabel : styles.label}>OD (Right Eye) <Text style={{color:'red'}}>*</Text></Text>
+        <Text style={baser ? styles.floatingLabel : styles.label}>OD (Right Eye)</Text>
 
         <TextInput
           style={styles.input_two}
@@ -621,7 +641,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         <Text style={basel ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye)</Text>
       </View>
 
-      <Text>Intermediate Add</Text>
+      <Text style={styles.heading}>Intermediate Add</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -637,7 +657,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         />
         <Text style={interl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) </Text>
       </View>
-      <Text>Near Add</Text>
+      <Text style={styles.heading}>Near Add</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -655,8 +675,8 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
       </View>
 
       <View style={styles.horizontalLine} />
-      <Text style={{fontWeight:'bold'}}>Clinical Findings (Specify any ocular pathology)</Text>
-      <Text>Anterior Segment</Text>
+      <Text style={styles.heading1}>Clinical Findings (Specify any ocular pathology)</Text>
+      <Text style={styles.heading}>Anterior Segment</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -673,7 +693,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         <Text style={anterl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye)</Text>
       </View>
       
-      <Text>Posterior Segment</Text>
+      <Text style={styles.heading}>Posterior Segment</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -691,8 +711,8 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
       </View>
 
       <View style={styles.horizontalLine} />
-      <Text style={{fontWeight:'bold'}}>Sensory and Motor Findings <Text style={{color:'red'}}>*</Text></Text>
-      <Text>Cover Test (Prism Dioptre)</Text>
+      <Text style={styles.heading1}>Sensory and Motor Findings <Text style={{color:'red'}}>*</Text></Text>
+      <Text style={styles.heading}>Cover Test (Prism Dioptre)</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -709,7 +729,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         <Text style={coverdr ? styles.floatingLabel_two : styles.label_two}>Distant <Text style={{color:'red'}}>*</Text></Text>
       </View>
       
-      <Text>Stereopsis(Seconds or Arc)</Text>
+      <Text style={styles.heading}>Stereopsis(Seconds or Arc)</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -726,7 +746,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
         <Text style={streerdr ? styles.floatingLabel_two : styles.label_two}>Distant <Text style={{color:'red'}}>*</Text></Text>
       </View>
 
-      <Text> Type Stereopsis Test</Text>
+      <Text style={styles.heading}> Type Stereopsis Test</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
           style={styles.input_two}
@@ -757,101 +777,134 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
 
 const styles = StyleSheet.create({
   container: {
-    marginTop:responsiveWidth(15),
+    marginTop: responsiveHeight(3),
+    color: 'white',
+  },
+  heading: {
+    paddingTop: responsiveHeight(2),
+    paddingLeft: responsiveWidth(2),
+    fontSize: responsiveFontSize(2.6), //Fontsize 20 is 2.6 and Fontsize 16 is 2.1 fontsize 14 is 1.9
+    color: 'black',
+    fontFamily: 'Poppins-Regular',
+  },
+  heading1:{ 
+    color:'black', 
+    fontSize:responsiveFontSize(2.8), 
+    fontFamily: 'Poppins-Regular',
+    paddingTop: responsiveHeight(2), 
+    paddingLeft: responsiveWidth(2),
   },
   inputContainer: {
-    marginTop:responsiveWidth(5),
+    marginTop: responsiveWidth(3),
   },
   input: {
-    padding: 15,
+    padding: responsiveWidth(4),
     borderColor: 'black',
-    borderWidth: 1,
-    fontSize: 16,
+    borderWidth: responsiveWidth(0.3),
+    fontSize: responsiveFontSize(2.1),
     fontFamily: 'Poppins-Regular',
-    marginLeft:15,
-    marginRight:15,
-    borderRadius:10
+    marginLeft: responsiveWidth(4),
+    marginRight: responsiveWidth(4),
+    borderRadius: responsiveWidth(3.5),
   },
   label: {
     position: 'absolute',
-    left: 25,
-    top: 20,
-    paddingHorizontal: 5,
+    left: responsiveWidth(6.8),
+    top: responsiveHeight(2.6),
+    paddingHorizontal: responsiveWidth(1),
     fontFamily: 'Poppins-Regular',
-    fontSize: 14,
+    fontSize: responsiveFontSize(2.1),
     color: 'black',
   },
   floatingLabel: {
     position: 'absolute',
-    left: 10,
-    top: -8,
-    paddingHorizontal: 5,
+    left: responsiveWidth(2.5),
+    top: responsiveHeight(-1.3),
+    paddingHorizontal: responsiveWidth(2),
     backgroundColor: 'white',
     fontFamily: 'Poppins-Regular',
-    fontSize: 14,
-    color: 'blue',
+    fontSize: responsiveFontSize(1.9),
+    color: '#175CA4',
   },
   horizontalLine: {
     borderBottomColor: 'black',
-    borderBottomWidth: 1,  
-    marginTop:25    
+    borderBottomWidth: responsiveHeight(0.15),
+    marginTop: responsiveHeight(4),
   },
   dropdownContainer: {
-    padding: 16,
+    padding: responsiveHeight(3),
     backgroundColor: 'white',
   },
   dropdownItem: {
-    paddingVertical: 10,
-    fontSize: 16,
+    paddingVertical: responsiveHeight(1.5),
+    fontSize: responsiveFontSize(2.1),
+    color: 'black',
   },
-  genderContainer: {
-    height: 40,
-    marginTop: 10,
+  buttonGroupContainer: {
+    height: responsiveHeight(6),
+    marginTop: responsiveHeight(1.5),
+    borderWidth:responsiveHeight(0.1), 
+    borderColor:'black'
+  },
+  selectedButtonStyle:{
+    backgroundColor:'#175CA4',
+  },
+  innerBorderStyle:{
+    borderWidth:responsiveHeight(0.1), 
+    color:'black'
+  },
+  textStyle:{
+    color:'black'
   },
   switchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: responsiveHeight(1.5),
   },
   switchLabel: {
-    marginLeft: 10,
-    fontSize: 16,
-    flex:1
+    marginLeft: responsiveWidth(2.5),
+    fontSize: responsiveFontSize(2.1),
+    color: 'black',
+    flex: 1,
   },
   input_two: {
-    padding: 15,
+    // height:10,
+    height:responsiveHeight(8),
+    // width:responsiveWidth(10),
+    padding: responsiveHeight(2),
     borderColor: 'black',
     borderWidth: 1,
-    fontSize: 16,
+    fontSize: responsiveFontSize(2.1),
     fontFamily: 'Poppins-Regular',
-    marginLeft:10,
-    marginRight:10,
-    borderRadius:10,
-    flex:1
+    marginLeft:responsiveWidth(2.6),
+    marginRight:responsiveWidth(2.6),
+    borderRadius:responsiveWidth(3.5),
+    flex: 1,
   },
   inputContainer_two: {
-    marginTop:responsiveWidth(5),
+    marginTop:responsiveWidth(2),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   label_two: {
     position: 'absolute',
-    left: 215,
-    top: 20,
-    paddingHorizontal: 5,
+    left: responsiveWidth(58),
+    top: responsiveHeight(2.6),
+    paddingHorizontal: responsiveWidth(1),
     fontFamily: 'Poppins-Regular',
-    fontSize: 14,
+    fontSize: responsiveFontSize(2.1),
     color: 'black',
   },
   floatingLabel_two: {
     position: 'absolute',
-    left: 190,
-    top: -8,
-    paddingHorizontal: 5,
+    left: responsiveWidth(52),
+    // left: 190,
+    top: responsiveHeight(-1.3),
+    paddingHorizontal: responsiveWidth(2),
     backgroundColor: 'white',
     fontFamily: 'Poppins-Regular',
-    fontSize: 14,
-    color: 'blue',
+    fontSize: responsiveFontSize(1.9),
+    color: '#175CA4',
   },
 });
 
