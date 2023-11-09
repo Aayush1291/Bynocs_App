@@ -1,21 +1,34 @@
-import { View } from 'react-native';
-import React, { useState } from 'react';
-import { FloatingLabelInput } from 'react-native-floating-label-input';
+import React from 'react';
+import { View,StyleSheet } from 'react-native';
+import { TextInput,Text } from 'react-native-paper';
+import { responsiveFontSize, responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
 
 const Chat = () => {
-  const [firstName, setFirstName] = useState('');
   return (
     <View>
-      <FloatingLabelInput
-        label="First Name *i want "
-        value={firstName}
-        onChangeText={(text) => setFirstName(text)}
-        customShowLabelStyles={{ color: 'blue' }}
-        customErrorLabelStyles={{ color: 'blue' }}
-        customLabelStyles={{ color: 'red' }}
-   />
+      <TextInput
+    style={styles.input}
+  mode="outlined"
+  label={
+  <Text>
+       Label
+       <Text style={{color: 'red'}}> *</Text>
+  </Text>
+  }
+/>  
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+input: {
+  padding: responsiveWidth(4),
+  borderColor: 'black',
+  borderWidth: responsiveWidth(0.3),
+  fontSize: responsiveFontSize(2.1),
+  fontFamily: 'Poppins-Regular',
+  marginLeft: responsiveWidth(4),
+  marginRight: responsiveWidth(4),
+  borderRadius: responsiveWidth(3.5),
+},
+})
 export default Chat;

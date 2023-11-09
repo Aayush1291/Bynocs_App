@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {Text, TextInput, View, StyleSheet, ScrollView, Modal, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, ScrollView, Modal, TouchableOpacity} from 'react-native';
+import { TextInput} from 'react-native-paper';
 import { responsiveFontSize, responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
 import {Calendar} from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -255,60 +256,108 @@ style={{backgroundColor: 'white'}}
       <Text style={styles.heading}>DOCTOR DETAILS</Text>
       <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
           style={styles.input}
           onChangeText={handleFirstNameChange}
           value={firstName}
+          theme={{ colors: { primary: 'blue',}}}
+          label={
+            <Text>
+                 First Name
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={firstName ? styles.floatingLabel : styles.label}>First Name <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
           style={styles.input}
           onChangeText={handleLastNameChange}
           value={lastName}
+          label={
+            <Text>
+                 Last Name
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={lastName ? styles.floatingLabel : styles.label}>Last Name <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input}
           onChangeText={handleEmailChange}
           value={email}
+          label={
+            <Text>
+                 Email
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={email ? styles.floatingLabel : styles.label}>Email <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <Text style={styles.heading}>PATIENT DETAILS</Text>
             <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input}
           onChangeText={handlePatientFirstNameChange}
           value={patientFirstName}
+          label={
+            <Text>
+                 Patient First Name
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={patientFirstName ? styles.floatingLabel : styles.label}>Patient First Name <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input}
           onChangeText={handlePatientLastNameChange}
           value={patientLastName}
+          label={
+            <Text>
+                 Patient Last Name
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={patientLastName ? styles.floatingLabel : styles.label}>Patient Last Name <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input}
           onChangeText={handlePatientEmailChange}
           value={patientEmail}
+          label={
+            <Text>
+                 Patient Email
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={patientEmail ? styles.floatingLabel : styles.label}>Patient Email <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input}
           value={patientBirth}
           onFocus={toggleCalendar}
+          label={
+            <Text>
+                 Date Of Birth
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={patientBirth ? styles.floatingLabel : styles.label}>Date of Birth <Text style={{color:'red'}}>*</Text></Text>
       </View>
       {isCalendarVisible && (
               <Modal visible={isCalendarVisible} animationType="slide">
@@ -325,13 +374,18 @@ style={{backgroundColor: 'white'}}
   )}
         <View style={styles.inputContainer}>
           <TextInput
+                    mode='outlined'
+
             style={styles.input}
             value={patientType}
             onFocus={toggleDropdown}
+            label={
+              <Text>
+                   Type Of Patient
+                   <Text style={{color: 'red'}}> *</Text>
+              </Text>
+              }
           />
-          <Text style={patientType ? styles.floatingLabel : styles.label}>
-            Type Of Patient <Text style={{ color: 'red' }}>*</Text>
-          </Text>
         </View>
 
         <BottomSheet
@@ -406,21 +460,35 @@ style={{backgroundColor: 'white'}}
         <View style={styles.horizontalLine} />
         <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input}
           onChangeText={handleDiagnosisChange}
           value={diagnosis}
           multiline
+          label={
+            <Text>
+                 Clinical Diagnosis
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={diagnosis ? styles.floatingLabel : styles.label}>Clinical Diagnosis <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input}
           onChangeText={handleHistoryChange}
           value={history}
           multiline
+          label={
+            <Text>
+                 Treatment History
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={history ? styles.floatingLabel : styles.label}>Treatment History <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <Text style={styles.heading}>Obejctive Refraction</Text>
         <ButtonGroup
@@ -436,100 +504,183 @@ style={{backgroundColor: 'white'}}
               <Text style={styles.heading}>SPH</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleSphChanger}
           value={sphr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={sphr ? styles.floatingLabel : styles.label}>OD (Right Eye) <Text style={{color:'red'}}>*</Text></Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleSphChangel}
           value={sphl}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={sphl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <Text style={styles.heading}>CYL</Text>
       <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleCylChanger}
           value={cylr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={cylr ? styles.floatingLabel : styles.label}>OD (Right Eye) <Text style={{color:'red'}}>*</Text></Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleCylChangel}
           value={cyll}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={cyll ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <Text style={styles.heading}>AXIS</Text>
       <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleAxisChanger}
           value={axisr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={axisr ? styles.floatingLabel : styles.label}>OD (Right Eye) <Text style={{color:'red'}}>*</Text></Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleAxisChangel}
           value={axisl}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={axisl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.horizontalLine} />
       <Text style={styles.heading1}>Subjective Refraction <Text style={{color:'red'}}>*</Text></Text>
       <Text style={styles.heading}>SPH</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleSrSphChanger}
           value={srsphr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={srsphr ? styles.floatingLabel : styles.label}>OD (Right Eye) <Text style={{color:'red'}}>*</Text></Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleSrSphChangel}
           value={srsphl}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={srsphl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <Text style={styles.heading}>CYL</Text>
       <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleSrCylChanger}
           value={srcylr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={srcylr ? styles.floatingLabel : styles.label}>OD (Right Eye) <Text style={{color:'red'}}>*</Text></Text>
-
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleSrCylChangel}
           value={srcyll}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={srcyll ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <Text style={styles.heading}>AXIS</Text>
       <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleSrAxisChanger}
           value={sraxisr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={sraxisr ? styles.floatingLabel : styles.label}>OD (Right Eye) <Text style={{color:'red'}}>*</Text></Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleSrAxisChangel}
           value={sraxisl}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={sraxisl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.horizontalLine} />
       <Text style={styles.heading}>BCVA Unit<Text style={{color: 'red'}}>*</Text></Text>
@@ -548,47 +699,77 @@ style={{backgroundColor: 'white'}}
       <Text style={styles.heading}>BCVA</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleBcvar}
           value={bcvar}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={bcvar ? styles.floatingLabel : styles.label}>OD (Right Eye) <Text style={{color:'red'}}>*</Text></Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleBcval}
           value={bcval}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={bcval ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input}
           onChangeText={handleBcvaipd}
           value={bcvaipd}
+          label={
+            <Text>
+                Interpupillary Distance (IPD in mm)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={bcvaipd ? styles.floatingLabel : styles.label}>Interpupillary Distance (IPD in mm) <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.horizontalLine} />
       {/* ye niche wala thik karna hai*/}
       <View style={styles.inputContainer_two}>
           <TextInput
+                    mode='outlined'
+
             style={styles.input_two}
             value={bcvaright}
             onFocus={toggleOdDropdown}
+            label={
+              <Text>
+                   OD (Right Eye)
+                   <Text style={{color: 'red'}}> *</Text>
+              </Text>
+              }
           />
-
-          <Text style={bcvaright ? styles.floatingLabel : styles.label}>
-          OD (Right Eye) <Text style={{ color: 'red' }}>*</Text>
-          </Text>
           <TextInput
+                    mode='outlined'
+
             style={styles.input_two}
             value={bcvaleft}
             onFocus={toggleOsDropdown}
+            label={
+              <Text>
+                   OS (Left Eye)
+                   <Text style={{color: 'red'}}> *</Text>
+              </Text>
+              }
           />
-          <Text style={bcvaleft ? styles.floatingLabel_two : styles.label_two}>
-            OS (Left Eye) <Text style={{ color: 'red' }}>*</Text>
-          </Text>
         </View>
 
         <BottomSheet
@@ -627,74 +808,129 @@ style={{backgroundColor: 'white'}}
             ))}
           </View>
         </BottomSheet>
-      {/* yah tak*/}
       <View style={styles.horizontalLine} />
       <Text style={styles.heading1}>Additional Refractive Parameters</Text>
       <Text style={styles.heading}>Prism</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handlePrismr}
           value={prismr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={prismr ? styles.floatingLabel : styles.label}>OD (Right Eye)</Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handlePrisml}
           value={prisml}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={prisml ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye)</Text>
       </View>
       
       <Text style={styles.heading}>Base</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleBaser}
           value={baser}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={baser ? styles.floatingLabel : styles.label}>OD (Right Eye)</Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleBaserl}
           value={basel}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={basel ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye)</Text>
       </View>
 
       <Text style={styles.heading}>Intermediate Add</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleinterr}
           value={interr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={interr ? styles.floatingLabel : styles.label}>OD (Right Eye)</Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleinterl}
           value={interl}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={interl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye) </Text>
       </View>
       <Text style={styles.heading}>Near Add</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handlenearr}
           value={nearr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={nearr ? styles.floatingLabel : styles.label}>OD (Right Eye)</Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handlenearl}
           value={nearl}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={nearl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye)</Text>
       </View>
 
       <View style={styles.horizontalLine} />
@@ -702,35 +938,63 @@ style={{backgroundColor: 'white'}}
       <Text style={styles.heading}>Anterior Segment</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleanterr}
           value={anterr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={anterr ? styles.floatingLabel : styles.label}>OD (Right Eye)</Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handleanterl}
           value={anterl}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={anterl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye)</Text>
       </View>
       
       <Text style={styles.heading}>Posterior Segment</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handlepnterr}
           value={pnterr}
+          label={
+            <Text>
+                 OD (Right Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={pnterr ? styles.floatingLabel : styles.label}>OD (Right Eye) </Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handlepnterl}
           value={pnterl}
+          label={
+            <Text>
+                 OS (Left Eye)
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={pnterl ? styles.floatingLabel_two : styles.label_two}>OS (Left Eye)</Text>
       </View>
 
       <View style={styles.horizontalLine} />
@@ -738,60 +1002,109 @@ style={{backgroundColor: 'white'}}
       <Text style={styles.heading}>Cover Test (Prism Dioptre)</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handlecovernr}
           value={covernr}
+          label={
+            <Text>
+               Near
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={covernr ? styles.floatingLabel : styles.label}>Near <Text style={{color:'red'}}>*</Text></Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handlecoverdr}
           value={coverdr}
+          label={
+            <Text>
+               Distant
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={coverdr ? styles.floatingLabel_two : styles.label_two}>Distant <Text style={{color:'red'}}>*</Text></Text>
       </View>
       
       <Text style={styles.heading}>Stereopsis(Seconds or Arc)</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handlestrenr}
           value={strenr}
+          label={
+            <Text>
+               Near
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={strenr ? styles.floatingLabel : styles.label}>Near <Text style={{color:'red'}}>*</Text></Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handlestredr}
           value={streerdr}
+          label={
+            <Text>
+               Distant
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={streerdr ? styles.floatingLabel_two : styles.label_two}>Distant <Text style={{color:'red'}}>*</Text></Text>
       </View>
 
       <Text style={styles.heading}> Type Stereopsis Test</Text>
               <View style={styles.inputContainer_two}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handletypestrenr}
           value={typestrenr}
+          label={
+            <Text>
+               Near
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={typestrenr ? styles.floatingLabel : styles.label}>Near <Text style={{color:'red'}}>*</Text></Text>
 
         <TextInput
+                  mode='outlined'
+
           style={styles.input_two}
           onChangeText={handletypestredr}
           value={typestredr}
+          label={
+            <Text>
+               Distant
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={typestredr ? styles.floatingLabel_two : styles.label_two}>Distant <Text style={{color:'red'}}>*</Text></Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
+                  mode='outlined'
+
           style={styles.input}
           onChangeText={handleComments}
           value={comments}
+          label={
+            <Text>
+               Comments
+                 <Text style={{color: 'red'}}> *</Text>
+            </Text>
+            }
         />
-        <Text style={ comments? styles.floatingLabel : styles.label}>Comments</Text>
       </View>
     </View>
     </ScrollView>
@@ -821,14 +1134,15 @@ const styles = StyleSheet.create({
     marginTop: responsiveWidth(3),
   },
   input: {
-    padding: responsiveWidth(4),
+    padding: responsiveWidth(2),
     borderColor: 'black',
-    borderWidth: responsiveWidth(0.3),
+    //borderWidth: responsiveWidth(0.3),
     fontSize: responsiveFontSize(2.1),
     fontFamily: 'Poppins-Regular',
     marginLeft: responsiveWidth(4),
     marginRight: responsiveWidth(4),
     borderRadius: responsiveWidth(3.5),
+    backgroundColor:'white',
   },
   label: {
     position: 'absolute',
@@ -894,40 +1208,21 @@ const styles = StyleSheet.create({
     // height:10,
     height:responsiveHeight(8),
     // width:responsiveWidth(10),
-    padding: responsiveHeight(2),
+    padding: responsiveHeight(1),
     borderColor: 'black',
-    borderWidth: 1,
+    //borderWidth: 1,
     fontSize: responsiveFontSize(2.1),
     fontFamily: 'Poppins-Regular',
     marginLeft:responsiveWidth(2.6),
     marginRight:responsiveWidth(2.6),
     borderRadius:responsiveWidth(3.5),
     flex: 1,
+    backgroundColor:'white'
   },
   inputContainer_two: {
     marginTop:responsiveWidth(2),
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  label_two: {
-    position: 'absolute',
-    left: responsiveWidth(58),
-    top: responsiveHeight(2.6),
-    paddingHorizontal: responsiveWidth(1),
-    fontFamily: 'Poppins-Regular',
-    fontSize: responsiveFontSize(2.1),
-    color: 'black',
-  },
-  floatingLabel_two: {
-    position: 'absolute',
-    left: responsiveWidth(52),
-    // left: 190,
-    top: responsiveHeight(-1.3),
-    paddingHorizontal: responsiveWidth(2),
-    backgroundColor: 'white',
-    fontFamily: 'Poppins-Regular',
-    fontSize: responsiveFontSize(1.9),
-    color: '#175CA4',
   },
 });
 
