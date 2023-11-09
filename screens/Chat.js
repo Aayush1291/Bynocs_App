@@ -1,12 +1,21 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View } from 'react-native';
+import React, { useState } from 'react';
+import { FloatingLabelInput } from 'react-native-floating-label-input';
 
 const Chat = () => {
+  const [firstName, setFirstName] = useState('');
   return (
     <View>
-      <Text>Chat</Text>
+      <FloatingLabelInput
+        label="First Name *i want "
+        value={firstName}
+        onChangeText={(text) => setFirstName(text)}
+        customShowLabelStyles={{ color: 'blue' }}
+        customErrorLabelStyles={{ color: 'blue' }}
+        customLabelStyles={{ color: 'red' }}
+   />
     </View>
-  )
-}
+  );
+};
 
 export default Chat;
