@@ -1,106 +1,106 @@
-import React, {useState} from 'react';
-import {Text, View, StyleSheet, ScrollView, Modal, TouchableOpacity} from 'react-native';
-import { TextInput} from 'react-native-paper';
-import { responsiveFontSize, responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
-import {Calendar} from 'react-native-calendars';
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, ScrollView, Modal, TouchableOpacity } from 'react-native';
+import { TextInput } from 'react-native-paper';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import { Calendar } from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {BottomSheet, ButtonGroup, Switch} from '@rneui/themed';
+import { BottomSheet, ButtonGroup, Switch } from '@rneui/themed';
 const AssessmentForm = () => {
+  
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email,setEmail]=useState('');
-  const [patientFirstName,setPatientFirstName]=useState('');
-  const [patientLastName,setPatientLastName]=useState('');
-  const [patientEmail,setPatientEmail]=useState('');
-  const [patientBirth,setPatientBirth]=useState('');
-  const [patientType,setPatientType]=useState('');
+  const [email, setEmail] = useState('');
+  const [patientFirstName, setPatientFirstName] = useState('');
+  const [patientLastName, setPatientLastName] = useState('');
+  const [patientEmail, setPatientEmail] = useState('');
+  const [patientBirth, setPatientBirth] = useState('');
+  const [patientType, setPatientType] = useState('');
   const [isCalendarVisible, setIsCalendarVisible] = useState(false);
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
-  const[diagnosis,setDiagnosis]=useState("");
-  const[history,setHistory]=useState("")
+  const [diagnosis, setDiagnosis] = useState("");
+  const [history, setHistory] = useState("")
   const [genderIndex, setGenderIndex] = useState(-1);
   const [checked1, setChecked1] = useState(false);
-    const [checked2, setChecked2] = useState(false);
+  const [checked2, setChecked2] = useState(false);
   const [checked3, setChecked3] = useState(false);
   const [checked4, setChecked4] = useState(false);
-
   const [obejctive, setobejctive] = useState(-1);
-  const [sphr,setSPHr]=useState('');
-  const [sphl,setSPHl]=useState('');
-  const [cylr,setCYLr]=useState('');
-  const [cyll,setCYLl]=useState('');
-  const [axisr,setAxisr]=useState('');
-  const [axisl,setAxisl]=useState('');
-
-  const [srsphr,srsetSPHr]=useState('');
-  const [srsphl,srsetSPHl]=useState('');
-  const [srcylr,srsetCYLr]=useState('');
-  const [srcyll,srsetCYLl]=useState('');
-  const [sraxisr,srsetAxisr]=useState('');
-  const [sraxisl,srsetAxisl]=useState('');
+  const [sphr, setSPHr] = useState('');
+  const [sphl, setSPHl] = useState('');
+  const [cylr, setCYLr] = useState('');
+  const [cyll, setCYLl] = useState('');
+  const [axisr, setAxisr] = useState('');
+  const [axisl, setAxisl] = useState('');
+  const [srsphr, srsetSPHr] = useState('');
+  const [srsphl, srsetSPHl] = useState('');
+  const [srcylr, srsetCYLr] = useState('');
+  const [srcyll, srsetCYLl] = useState('');
+  const [sraxisr, srsetAxisr] = useState('');
+  const [sraxisl, srsetAxisl] = useState('');
   const [bcva, setBcva] = useState(-1);
-  const[bcvar,setBcvar]=useState("");
-  const[bcval,setBcval]=useState("");
-  const[bcvaipd,setBcvaIpd]=useState("");
-const[prismr,setPrismr]=useState("");
-const[prisml,setPrisml]=useState("");
-const[baser,setBaser]=useState("");
-const[basel,setBasel]=useState("");
-const[interl,setInterl]=useState("");
-const[interr,setInterr]=useState("");
-const[nearr,setNearr]=useState("");
-const[nearl,setNearl]=useState("");
-const[anterl,setAnterl]=useState("");
-const[anterr,setAnterr]=useState("");
-const[pnterl,setPnterl]=useState("");
-const[pnterr,setPnterr]=useState("");
-const[covernr,setcovernr]=useState("");
-const[coverdr,setcoverdr]=useState("");
-const[strenr,setstrenr]=useState("");
-const[streerdr,setstredr]=useState("");
-const[typestrenr,settypestrenr]=useState("");
-const[typestredr,settypestredr]=useState("");
-const[comments,setComments]=useState("")
-  const [bcvaright,setBcvaRight]=useState('');
-  const [bcvaleft,setBcvaLeft]=useState('');
-const [isODDropdownVisible, setIsODDropdownVisible] = useState(false);
-const [isOSDropdownVisible, setIsOSDropdownVisible] = useState(false);
+  const [bcvar, setBcvar] = useState("");
+  const [bcval, setBcval] = useState("");
+  const [bcvaipd, setBcvaIpd] = useState("");
+  const [prismr, setPrismr] = useState("");
+  const [prisml, setPrisml] = useState("");
+  const [baser, setBaser] = useState("");
+  const [basel, setBasel] = useState("");
+  const [interl, setInterl] = useState("");
+  const [interr, setInterr] = useState("");
+  const [nearr, setNearr] = useState("");
+  const [nearl, setNearl] = useState("");
+  const [anterl, setAnterl] = useState("");
+  const [anterr, setAnterr] = useState("");
+  const [pnterl, setPnterl] = useState("");
+  const [pnterr, setPnterr] = useState("");
+  const [covernr, setcovernr] = useState("");
+  const [coverdr, setcoverdr] = useState("");
+  const [strenr, setstrenr] = useState("");
+  const [streerdr, setstredr] = useState("");
+  const [typestrenr, settypestrenr] = useState("");
+  const [typestredr, settypestredr] = useState("");
+  const [comments, setComments] = useState("")
+  const [bcvaright, setBcvaRight] = useState('');
+  const [bcvaleft, setBcvaLeft] = useState('');
+  const [isODDropdownVisible, setIsODDropdownVisible] = useState(false);
+  const [isOSDropdownVisible, setIsOSDropdownVisible] = useState(false);
+  
   const toggleDropdown = () => {
     setIsBottomSheetVisible(!isBottomSheetVisible);
   };
-    const toggleOdDropdown = () => {
+  const toggleOdDropdown = () => {
     setIsODDropdownVisible(!isODDropdownVisible);
   };
-    const toggleOsDropdown = () => {
+  const toggleOsDropdown = () => {
     setIsOSDropdownVisible(!isOSDropdownVisible);
   };
   const data = [
-    {key:'1', value:'Amblyopia with intermittent strabismus'},
-    {key:'2', value:'Anisometropic Amblyopia'},
-    {key:'3', value:'Isometric Amblyopia'},
-    {key:'4', value:'Refractive Amblyopia'},
-    {key:'5', value:'Other(Please specify in below field'},
-    {key:'6', value:'Cancel'},
-]
-const od = [
-  {key:'1', value:'Foveal'},
-  {key:'2', value:'Eccentric'},
-  {key:'3', value:'Cancel'},
-]
-const os = [
-  {key:'1', value:'Foveal'},
-  {key:'2', value:'Eccentric'},
-  {key:'3', value:'Cancel'},
-]
-const genderButtons = ['Male', 'Female', 'Other'];
-const obejctiveRefraction=['Cyclopegic','Non-Cycloplegic']
-const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
+    { key: '1', value: 'Amblyopia with intermittent strabismus' },
+    { key: '2', value: 'Anisometropic Amblyopia' },
+    { key: '3', value: 'Isometric Amblyopia' },
+    { key: '4', value: 'Refractive Amblyopia' },
+    { key: '5', value: 'Other(Please specify in below field' },
+    { key: '6', value: 'Cancel' },
+  ]
+  const od = [
+    { key: '1', value: 'Foveal' },
+    { key: '2', value: 'Eccentric' },
+    { key: '3', value: 'Cancel' },
+  ]
+  const os = [
+    { key: '1', value: 'Foveal' },
+    { key: '2', value: 'Eccentric' },
+    { key: '3', value: 'Cancel' },
+  ]
+  const genderButtons = ['Male', 'Female', 'Other'];
+  const obejctiveRefraction = ['Cyclopegic', 'Non-Cycloplegic']
+  const Bcva = ['LogMAR', 'Decimal', 'Snellens (feet)', 'Snellens (meters)']
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const handleFirstNameChange = (text) => {
     setFirstName(text);
   };
-  
+
   const handleLastNameChange = (text) => {
     setLastName(text);
   };
@@ -129,13 +129,13 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
   const toggleSwitch1 = () => {
     setChecked1(!checked1);
   };
-    const toggleSwitch2 = () => {
+  const toggleSwitch2 = () => {
     setChecked2(!checked2);
   };
-    const toggleSwitch3 = () => {
+  const toggleSwitch3 = () => {
     setChecked3(!checked3);
   };
-    const toggleSwitch4 = () => {
+  const toggleSwitch4 = () => {
     setChecked4(!checked4);
   };
   const handleDiagnosisChange = (text) => {
@@ -199,7 +199,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
   const handleBaser = (text) => {
     setBaser(text);
   };
-  const handleBaserl= (text) => {
+  const handleBaserl = (text) => {
     setBasel(text);
   };
   const handleinterr = (text) => {
@@ -211,7 +211,7 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
   const handlenearr = (text) => {
     setNearr(text);
   };
-  const handlenearl= (text) => {
+  const handlenearl = (text) => {
     setNearl(text);
   };
   const handleanterr = (text) => {
@@ -248,143 +248,154 @@ const Bcva=['LogMAR','Decimal','Snellens (feet)','Snellens (meters)']
     setComments(text);
   };
   return (
-<ScrollView 
-keyboardShouldPersistTaps="handled"
-style={{backgroundColor: 'white'}}
->
-    <View style={styles.container}>
-      <Text style={styles.heading}>DOCTOR DETAILS</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-          style={styles.input}
-          onChangeText={handleFirstNameChange}
-          value={firstName}
-          theme={{ colors: { primary: 'blue',}}}
-          label={
-            <Text>
-                 First Name
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-          style={styles.input}
-          onChangeText={handleLastNameChange}
-          value={lastName}
-          label={
-            <Text>
-                 Last Name
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input}
-          onChangeText={handleEmailChange}
-          value={email}
-          label={
-            <Text>
-                 Email
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      <Text style={styles.heading}>PATIENT DETAILS</Text>
-            <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input}
-          onChangeText={handlePatientFirstNameChange}
-          value={patientFirstName}
-          label={
-            <Text>
-                 Patient First Name
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input}
-          onChangeText={handlePatientLastNameChange}
-          value={patientLastName}
-          label={
-            <Text>
-                 Patient Last Name
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input}
-          onChangeText={handlePatientEmailChange}
-          value={patientEmail}
-          label={
-            <Text>
-                 Patient Email
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input}
-          value={patientBirth}
-          onFocus={toggleCalendar}
-          label={
-            <Text>
-                 Date Of Birth
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      {isCalendarVisible && (
-              <Modal visible={isCalendarVisible} animationType="slide">
-              <View style={styles.Calendar_Container}>
-                  <View style={styles.Calendar_Header}>
-                      <Text style={styles.Calendar_Header_Text}>Select Date</Text>
-                      <TouchableOpacity onPress={() => setIsCalendarVisible(false)}>
-                          <Icon name="close" size={24} color="white" style={styles.CloseIcon} />
-                      </TouchableOpacity>
-                  </View>
-                  <Calendar onDayPress={handlePatientBirthChange} maxDate={today}/>
-              </View>
-          </Modal>
-  )}
+    <ScrollView
+      keyboardShouldPersistTaps="handled"
+      style={{ backgroundColor: 'white' }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.heading}>DOCTOR DETAILS</Text>
         <View style={styles.inputContainer}>
           <TextInput
-                    mode='outlined'
-
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            onChangeText={handleFirstNameChange}
+            value={firstName}
+            theme={{ colors: { primary: 'blue', } }}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                First Name
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            onChangeText={handleLastNameChange}
+            value={lastName}
+            theme={{ colors: { primary: 'blue', } }}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Last Name
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            onChangeText={handleEmailChange}
+            value={email}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Email
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        <Text style={styles.heading}>PATIENT DETAILS</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            onChangeText={handlePatientFirstNameChange}
+            value={patientFirstName}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Patient's First Name
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            onChangeText={handlePatientLastNameChange}
+            value={patientLastName}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Patient's Last Name
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            onChangeText={handlePatientEmailChange}
+            value={patientEmail}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Patient's Email
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            value={patientBirth}
+            onFocus={toggleCalendar}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Date Of Birth
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        {isCalendarVisible && (
+          <Modal visible={isCalendarVisible} animationType="slide">
+            <View style={styles.Calendar_Container}>
+              <View style={styles.Calendar_Header}>
+                <Text style={styles.Calendar_Header_Text}>Select Date</Text>
+                <TouchableOpacity onPress={() => setIsCalendarVisible(false)}>
+                  <Icon name="close" size={24} color="white" style={styles.CloseIcon} />
+                </TouchableOpacity>
+              </View>
+              <Calendar onDayPress={handlePatientBirthChange} maxDate={today} />
+            </View>
+          </Modal>
+        )}
+        <View style={styles.inputContainer}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
             style={styles.input}
             value={patientType}
             onFocus={toggleDropdown}
             label={
-              <Text>
-                   Type Of Patient
-                   <Text style={{color: 'red'}}> *</Text>
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Type of Patient
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
               </Text>
-              }
+            }
           />
         </View>
 
@@ -406,8 +417,8 @@ style={{backgroundColor: 'white'}}
             ))}
           </View>
         </BottomSheet>
-      <View style={styles.horizontalLine} />
-      <Text style={styles.heading}>Gender</Text>
+        <View style={styles.horizontalLine} />
+        <Text style={styles.heading}>Gender</Text>
         <ButtonGroup
           buttons={genderButtons}
           selectedIndex={genderIndex}
@@ -417,13 +428,13 @@ style={{backgroundColor: 'white'}}
           textStyle={styles.textStyle}
           innerBorderStyle={styles.innerBorderStyle}
         />
-              <View style={styles.horizontalLine} />
-              <View style={styles.switchContainer}>
+        <View style={styles.horizontalLine} />
+        <View style={styles.switchContainer}>
           <Switch
             value={checked1}
             onValueChange={toggleSwitch1}
-            trackColor={{true:'#175CA4'}}
-            thumbColor={checked1?'white':'#175CA4'}
+            trackColor={{ true: '#175CA4' }}
+            thumbColor={checked1 ? 'white' : '#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently wearing a patch?</Text>
         </View>
@@ -432,8 +443,8 @@ style={{backgroundColor: 'white'}}
           <Switch
             value={checked2}
             onValueChange={toggleSwitch2}
-            trackColor={{true:'#175CA4'}}
-            thumbColor={checked2?'white':'#175CA4'}
+            trackColor={{ true: '#175CA4' }}
+            thumbColor={checked2 ? 'white' : '#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently wearing a filter?</Text>
         </View>
@@ -442,8 +453,8 @@ style={{backgroundColor: 'white'}}
           <Switch
             value={checked3}
             onValueChange={toggleSwitch3}
-            trackColor={{true:'#175CA4'}}
-            thumbColor={checked3?'white':'#175CA4'}
+            trackColor={{ true: '#175CA4' }}
+            thumbColor={checked3 ? 'white' : '#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently using a prism?</Text>
         </View>
@@ -452,45 +463,47 @@ style={{backgroundColor: 'white'}}
           <Switch
             value={checked4}
             onValueChange={toggleSwitch4}
-            trackColor={{true:'#175CA4'}}
-            thumbColor={checked4?'white':'#175CA4'}
+            trackColor={{ true: '#175CA4' }}
+            thumbColor={checked4 ? 'white' : '#175CA4'}
           />
           <Text style={styles.switchLabel}>Is the patient currently wearing glasses or contact lenses with the best possible correction?</Text>
         </View>
         <View style={styles.horizontalLine} />
         <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input}
-          onChangeText={handleDiagnosisChange}
-          value={diagnosis}
-          multiline
-          label={
-            <Text>
-                 Clinical Diagnosis
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            onChangeText={handleDiagnosisChange}
+            value={diagnosis}
+            multiline
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Clinical Diagnosis
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input}
-          onChangeText={handleHistoryChange}
-          value={history}
-          multiline
-          label={
-            <Text>
-                 Treatment History
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            onChangeText={handleHistoryChange}
+            value={history}
+            multiline
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Treatment History
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
-      </View>
-      <Text style={styles.heading}>Obejctive Refraction</Text>
+          />
+        </View>
+        <Text style={styles.heading}>Obejctive Refraction</Text>
         <ButtonGroup
           buttons={obejctiveRefraction}
           selectedIndex={obejctive}
@@ -500,190 +513,202 @@ style={{backgroundColor: 'white'}}
           textStyle={styles.textStyle}
           innerBorderStyle={styles.innerBorderStyle}
         />
-              <View style={styles.horizontalLine} />
-              <Text style={styles.heading}>SPH</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleSphChanger}
-          value={sphr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+        <View style={styles.horizontalLine} />
+        <Text style={styles.heading}>SPH</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleSphChanger}
+            value={sphr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
+          />
 
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleSphChangel}
-          value={sphl}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleSphChangel}
+            value={sphl}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
-      </View>
-      <Text style={styles.heading}>CYL</Text>
-      <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleCylChanger}
-          value={cylr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          />
+        </View>
+        <Text style={styles.heading}>CYL</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleCylChanger}
+            value={cylr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
+          />
 
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleCylChangel}
-          value={cyll}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleCylChangel}
+            value={cyll}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
-      </View>
-      <Text style={styles.heading}>AXIS</Text>
-      <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleAxisChanger}
-          value={axisr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          />
+        </View>
+        <Text style={styles.heading}>AXIS</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleAxisChanger}
+            value={axisr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
+          />
 
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleAxisChangel}
-          value={axisl}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleAxisChangel}
+            value={axisl}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
-      </View>
-      <View style={styles.horizontalLine} />
-      <Text style={styles.heading1}>Subjective Refraction <Text style={{color:'red'}}>*</Text></Text>
-      <Text style={styles.heading}>SPH</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleSrSphChanger}
-          value={srsphr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          />
+        </View>
+        <View style={styles.horizontalLine} />
+        <Text style={styles.heading1}>Subjective Refraction <Text style={{ color: 'red' }}>*</Text></Text>
+        <Text style={styles.heading}>SPH</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleSrSphChanger}
+            value={srsphr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
+          />
 
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleSrSphChangel}
-          value={srsphl}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleSrSphChangel}
+            value={srsphl}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
-      </View>
-      <Text style={styles.heading}>CYL</Text>
-      <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleSrCylChanger}
-          value={srcylr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          />
+        </View>
+        <Text style={styles.heading}>CYL</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleSrCylChanger}
+            value={srcylr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleSrCylChangel}
-          value={srcyll}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          />
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleSrCylChangel}
+            value={srcyll}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
-      </View>
-      <Text style={styles.heading}>AXIS</Text>
-      <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleSrAxisChanger}
-          value={sraxisr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          />
+        </View>
+        <Text style={styles.heading}>AXIS</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleSrAxisChanger}
+            value={sraxisr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
+          />
 
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleSrAxisChangel}
-          value={sraxisl}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleSrAxisChangel}
+            value={sraxisl}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
-      </View>
-      <View style={styles.horizontalLine} />
-      <Text style={styles.heading}>BCVA Unit<Text style={{color: 'red'}}>*</Text></Text>
+          />
+        </View>
+        <View style={styles.horizontalLine} />
+        <Text style={styles.heading}>BCVA Unit<Text style={{ color: 'red' }}>*</Text></Text>
         <ButtonGroup
           buttons={Bcva}
           selectedIndex={bcva}
@@ -693,82 +718,87 @@ style={{backgroundColor: 'white'}}
           textStyle={styles.textStyle}
           innerBorderStyle={styles.innerBorderStyle}
         />
-              <View style={styles.horizontalLine} />
+        <View style={styles.horizontalLine} />
 
-              <Text style={styles.heading1}>Visual Acuity <Text style={{color:'red'}}>*</Text></Text>
-      <Text style={styles.heading}>BCVA</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleBcvar}
-          value={bcvar}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleBcval}
-          value={bcval}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input}
-          onChangeText={handleBcvaipd}
-          value={bcvaipd}
-          label={
-            <Text>
-                Interpupillary Distance (IPD in mm)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      <View style={styles.horizontalLine} />
-      {/* ye niche wala thik karna hai*/}
-      <View style={styles.inputContainer_two}>
+        <Text style={styles.heading1}>Visual Acuity <Text style={{ color: 'red' }}>*</Text></Text>
+        <Text style={styles.heading}>BCVA</Text>
+        <View style={styles.inputContainer_two}>
           <TextInput
-                    mode='outlined'
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleBcvar}
+            value={bcvar}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
 
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleBcval}
+            value={bcval}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            onChangeText={handleBcvaipd}
+            value={bcvaipd}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Interpupillary Distance (IPD in mm)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        <View style={styles.horizontalLine} />
+        {/* ye niche wala thik karna hai*/}
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
             style={styles.input_two}
             value={bcvaright}
             onFocus={toggleOdDropdown}
             label={
-              <Text>
-                   OD (Right Eye)
-                   <Text style={{color: 'red'}}> *</Text>
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
               </Text>
-              }
+            }
           />
           <TextInput
-                    mode='outlined'
-
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
             style={styles.input_two}
             value={bcvaleft}
             onFocus={toggleOsDropdown}
             label={
-              <Text>
-                   OS (Left Eye)
-                   <Text style={{color: 'red'}}> *</Text>
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
               </Text>
-              }
+            }
           />
         </View>
 
@@ -808,312 +838,332 @@ style={{backgroundColor: 'white'}}
             ))}
           </View>
         </BottomSheet>
-      <View style={styles.horizontalLine} />
-      <Text style={styles.heading1}>Additional Refractive Parameters</Text>
-      <Text style={styles.heading}>Prism</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handlePrismr}
-          value={prismr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+        <View style={styles.horizontalLine} />
+        <Text style={styles.heading1}>Additional Refractive Parameters</Text>
+        <Text style={styles.heading}>Prism</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handlePrismr}
+            value={prismr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
+          />
 
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handlePrisml}
-          value={prisml}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handlePrisml}
+            value={prisml}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
             }
-        />
+          />
+        </View>
+
+        <Text style={styles.heading}>Base</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleBaser}
+            value={baser}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleBaserl}
+            value={basel}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+
+        <Text style={styles.heading}>Intermediate Add</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleinterr}
+            value={interr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleinterl}
+            value={interl}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        <Text style={styles.heading}>Near Add</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handlenearr}
+            value={nearr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handlenearl}
+            value={nearl}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+
+        <View style={styles.horizontalLine} />
+        <Text style={styles.heading1}>Clinical Findings (Specify any ocular pathology)</Text>
+        <Text style={styles.heading}>Anterior Segment</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleanterr}
+            value={anterr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handleanterl}
+            value={anterl}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+
+        <Text style={styles.heading}>Posterior Segment</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handlepnterr}
+            value={pnterr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OD (Right Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handlepnterl}
+            value={pnterl}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                OS (Left Eye)
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+
+        <View style={styles.horizontalLine} />
+        <Text style={styles.heading1}>Sensory and Motor Findings <Text style={{ color: 'red' }}>*</Text></Text>
+        <Text style={styles.heading}>Cover Test (Prism Dioptre)</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handlecovernr}
+            value={covernr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Near
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handlecoverdr}
+            value={coverdr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Distant
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+
+        <Text style={styles.heading}>Stereopsis(Seconds or Arc)</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handlestrenr}
+            value={strenr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Near
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handlestredr}
+            value={streerdr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Distant
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+
+        <Text style={styles.heading}> Type Stereopsis Test</Text>
+        <View style={styles.inputContainer_two}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handletypestrenr}
+            value={typestrenr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Near
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input_two}
+            onChangeText={handletypestredr}
+            value={typestredr}
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Distant
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            mode='outlined'
+            cursorColor='black'
+            outlineStyle={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            style={styles.input}
+            onChangeText={handleComments}
+            value={comments}
+            multiline
+            label={
+              <Text style={{ color: 'black', backgroundColor: 'white' }}>
+                Comments
+                <Text style={{ color: 'red', backgroundColor: 'white' }}> *</Text>
+              </Text>
+            }
+          />
+        </View>
       </View>
-      
-      <Text style={styles.heading}>Base</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleBaser}
-          value={baser}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleBaserl}
-          value={basel}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-
-      <Text style={styles.heading}>Intermediate Add</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleinterr}
-          value={interr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleinterl}
-          value={interl}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      <Text style={styles.heading}>Near Add</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handlenearr}
-          value={nearr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handlenearl}
-          value={nearl}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-
-      <View style={styles.horizontalLine} />
-      <Text style={styles.heading1}>Clinical Findings (Specify any ocular pathology)</Text>
-      <Text style={styles.heading}>Anterior Segment</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleanterr}
-          value={anterr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handleanterl}
-          value={anterl}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      
-      <Text style={styles.heading}>Posterior Segment</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handlepnterr}
-          value={pnterr}
-          label={
-            <Text>
-                 OD (Right Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handlepnterl}
-          value={pnterl}
-          label={
-            <Text>
-                 OS (Left Eye)
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-
-      <View style={styles.horizontalLine} />
-      <Text style={styles.heading1}>Sensory and Motor Findings <Text style={{color:'red'}}>*</Text></Text>
-      <Text style={styles.heading}>Cover Test (Prism Dioptre)</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handlecovernr}
-          value={covernr}
-          label={
-            <Text>
-               Near
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handlecoverdr}
-          value={coverdr}
-          label={
-            <Text>
-               Distant
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      
-      <Text style={styles.heading}>Stereopsis(Seconds or Arc)</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handlestrenr}
-          value={strenr}
-          label={
-            <Text>
-               Near
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handlestredr}
-          value={streerdr}
-          label={
-            <Text>
-               Distant
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-
-      <Text style={styles.heading}> Type Stereopsis Test</Text>
-              <View style={styles.inputContainer_two}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handletypestrenr}
-          value={typestrenr}
-          label={
-            <Text>
-               Near
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input_two}
-          onChangeText={handletypestredr}
-          value={typestredr}
-          label={
-            <Text>
-               Distant
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-                  mode='outlined'
-
-          style={styles.input}
-          onChangeText={handleComments}
-          value={comments}
-          label={
-            <Text>
-               Comments
-                 <Text style={{color: 'red'}}> *</Text>
-            </Text>
-            }
-        />
-      </View>
-    </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: responsiveHeight(3),
+    marginTop: responsiveHeight(1),
     color: 'white',
   },
   heading: {
@@ -1123,26 +1173,21 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'Poppins-Regular',
   },
-  heading1:{ 
-    color:'black', 
-    fontSize:responsiveFontSize(2.8), 
+  heading1: {
+    color: 'black',
+    fontSize: responsiveFontSize(2.8),
     fontFamily: 'Poppins-Regular',
-    paddingTop: responsiveHeight(2), 
+    paddingTop: responsiveHeight(2),
     paddingLeft: responsiveWidth(2),
   },
   inputContainer: {
-    marginTop: responsiveWidth(3),
+    backgroundColor: 'white',
   },
   input: {
-    padding: responsiveWidth(2),
-    borderColor: 'black',
-    //borderWidth: responsiveWidth(0.3),
+    margin: responsiveWidth(4),
+    backgroundColor: 'white',
     fontSize: responsiveFontSize(2.1),
     fontFamily: 'Poppins-Regular',
-    marginLeft: responsiveWidth(4),
-    marginRight: responsiveWidth(4),
-    borderRadius: responsiveWidth(3.5),
-    backgroundColor:'white',
   },
   label: {
     position: 'absolute',
@@ -1180,18 +1225,18 @@ const styles = StyleSheet.create({
   buttonGroupContainer: {
     height: responsiveHeight(6),
     marginTop: responsiveHeight(1.5),
-    borderWidth:responsiveHeight(0.1), 
-    borderColor:'black'
+    borderWidth: responsiveHeight(0.1),
+    borderColor: 'black'
   },
-  selectedButtonStyle:{
-    backgroundColor:'#175CA4',
+  selectedButtonStyle: {
+    backgroundColor: '#175CA4',
   },
-  innerBorderStyle:{
-    borderWidth:responsiveHeight(0.1), 
-    color:'black'
+  innerBorderStyle: {
+    borderWidth: responsiveHeight(0.1),
+    color: 'black'
   },
-  textStyle:{
-    color:'black'
+  textStyle: {
+    color: 'black'
   },
   switchContainer: {
     flexDirection: 'row',
@@ -1205,22 +1250,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input_two: {
-    // height:10,
-    height:responsiveHeight(8),
-    // width:responsiveWidth(10),
-    padding: responsiveHeight(1),
-    borderColor: 'black',
-    //borderWidth: 1,
+
     fontSize: responsiveFontSize(2.1),
     fontFamily: 'Poppins-Regular',
-    marginLeft:responsiveWidth(2.6),
-    marginRight:responsiveWidth(2.6),
-    borderRadius:responsiveWidth(3.5),
+    marginLeft: responsiveWidth(2.6),
+    marginRight: responsiveWidth(2.6),
+    borderRadius: responsiveWidth(3.5),
     flex: 1,
-    backgroundColor:'white'
+    backgroundColor: 'white',
   },
   inputContainer_two: {
-    marginTop:responsiveWidth(2),
+    marginTop: responsiveWidth(2),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
