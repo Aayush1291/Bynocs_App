@@ -14,7 +14,6 @@ import {
   responsiveHeight,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
-// import { Calendar } from 'react-native-calendars'
 import moment, { duration } from 'moment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Calendar from './Calendar';
@@ -22,6 +21,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import PushNotification from 'react-native-push-notification'
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import messaging from '@react-native-firebase/messaging'
+
 const generateTimeSlots = (startTime, endTime, duration) => {
   const slots = [];
   const format = 'h:mm A';
@@ -52,7 +52,6 @@ const Book_Appointment = () => {
   const [apiContent, setApiContent] = useState(null);
   let [timeSlotDuration, setTimeSlotDuration] = useState(60);
 
-  // const [selectedTime, onSelectTime] = useState('');
   const [morning, setMorning] = useState(false);
   const [day, setDay] = useState(false);
   const [night, setNight] = useState(false);
@@ -76,33 +75,21 @@ const Book_Appointment = () => {
 
   let username = '';
   let email = '';
-  let startTimeUser;
 
-  function formatDate(dateString) {
-    const parts = dateString.split('-');
-    const year = parts[0];
-    const month = parseInt(parts[1], 10);
-    const day = parseInt(parts[2], 10);
-    return `${month}/${day}/${year}`;
-  }
-  const createChannel=()=>{
+  const createChannel = () => {
     PushNotification.createChannel({
-      channelId:'123',
-      channelName:'demo'
+      channelId: '123',
+      channelName: 'demo'
     })
   }
   const handleSubmission = async () => {
     username = await AsyncStorage.getItem('UserName');
     email = await AsyncStorage.getItem('Email');
-    // console.log('HANDLE SUBMISSION');
     const currentDate = new Date();
     const currentTime = new Date();
 
     const date = currentDate.toLocaleDateString();
     const time = currentTime.toLocaleTimeString();
-
-    // console.log(`Date: ${date}`);
-    // console.log(`Time: ${time}`);
 
     if (
       !serviceName ||
@@ -136,22 +123,21 @@ const Book_Appointment = () => {
           if (response.ok) {
             handleSendNotification();
             Alert.alert('Appointment booked successfully');
-            if(Platform.OS=='android')
-            {
-            PushNotification.localNotification({
-              channelId:'123',
-              title:'Success',
-              message:'Appointment booked successfully'
-            })
-          }
-          else{
-            PushNotificationIOS.addNotificationRequest({
-              id: '123',
-              body:'Appointment Book Successfully',
-              title:'Success',
-            })
-            
-          }
+            if (Platform.OS == 'android') {
+              PushNotification.localNotification({
+                channelId: '123',
+                title: 'Success',
+                message: 'Appointment booked successfully'
+              })
+            }
+            else {
+              PushNotificationIOS.addNotificationRequest({
+                id: '123',
+                body: 'Appointment Book Successfully',
+                title: 'Success',
+              })
+
+            }
           } else {
             console.error('Failed to book appointment');
           }
@@ -159,18 +145,12 @@ const Book_Appointment = () => {
           console.error('Error booking appointment:', error);
         }
       }
-      // setTimeSlotDuration(' ');
-      // setServiceName(' ');
-      // setselectedStartSlot(' ');
-      // setselectedEndSlot(' ');
-      // setCategoryData(' ');
-      // setDate(' ');
     }
   };
   const subscribeToUserTopic = async () => {
     try {
       const username = await AsyncStorage.getItem('UserName');
-  
+
       if (username) {
         messaging()
           .subscribeToTopic(`user_${username}`)
@@ -183,7 +163,7 @@ const Book_Appointment = () => {
       console.error('Error:', error);
     }
   };
-  
+
   // Call the subscribeToUserTopic function to subscribe the user to their topic
   subscribeToUserTopic();
   const handleSendNotification = async () => {
@@ -209,9 +189,7 @@ const Book_Appointment = () => {
 
       if (response.ok) {
         const responseData = await response.text();
-        // console.log('Raw Response:', responseData);
       } else {
-        // console.log('Error sending test notification.');
       }
     } catch (error) {
       console.error('Error sending test notification:', error);
@@ -226,7 +204,6 @@ const Book_Appointment = () => {
       .then(() => messaging().getToken())
       .then((token) => {
         console.log('FCM Token:', token);
-        // Send this token to your server to target specific devices
       })
       .catch((error) => {
         console.log('Error requesting permission or getting FCM token:', error);
@@ -237,8 +214,8 @@ const Book_Appointment = () => {
 
       if (Platform.OS === 'android') {
         PushNotification.localNotification({
-          channelId:'123',
-          message:remoteMessage.notification.body
+          channelId: '123',
+          message: remoteMessage.notification.body
         });
 
       }
@@ -269,19 +246,12 @@ const Book_Appointment = () => {
 
       //time
       const responseTimes = await fetch('https://retoolapi.dev/0roSS2/data');
-        const jsonData = await responseTimes.json();
-        setData(jsonData);
+      const jsonData = await responseTimes.json();
+      setData(jsonData);
     } catch (error) {
       console.error('Error fetching API content:', error);
     }
   };
-
-
-  // const fetchAPIData = async () => {
-
-
-  // };
-
 
   if (!apiContent) {
     return (
@@ -292,38 +262,34 @@ const Book_Appointment = () => {
   }
 
   const findStartAndEndTime = () => {
-    const selection = apiContent.find((element)=> element.selectedWeekday===selDay && element.username===names);
+    const selection = apiContent.find((element) => element.selectedWeekday === selDay && element.username === names);
     console.log("firststart");
     console.log("selection", selection);
-    if(selection){
+    if (selection) {
       const start = selection.fromTime;
       setStartTime(start)
       const end = selection.toTime;
       setEndTime(end)
       console.log("start", start);
       console.log("end", end);
-       timeSlots=[];
-       timeSlots = generateTimeSlots(start,end, timeSlotDuration);
-      //  console.log(timeSlots);
-       timedivision();
+      timeSlots = [];
+      timeSlots = generateTimeSlots(start, end, timeSlotDuration);
+      timedivision();
     }
-    else{
+    else {
       console.log("No item");
       setmorningSlots([]);
       setdaySlots([]);
       setnightSlots([]);
     }
   };
- 
-  let names ;
+
+  let names;
   let durations = 60;
 
 
   function durationChange(d, val) {
     setCategoryData(val);
-    // console.log('DURATION : ', d);
-    // console.log('user start', startTime);
-    // console.log("user end", startEndUser);
     durations = d;
     setTimeSlotDuration(durations);
     timeSlots = [];
@@ -334,32 +300,20 @@ const Book_Appointment = () => {
   }
 
 
-  const dummyfunc = (name)=>{
-    names=name;
+  const dummyfunc = (name) => {
+    names = name;
     setServiceName(name);
-    // console.log(serviceName);
-    // console.log("dummy func", selDay)
     console.log("new name selected");
     findStartAndEndTime();
   }
-
   console.log("SELECTED DATE", selectedDate);
-
   let selDay = selectDay;
 
-  // const startTime = apiContent[0].fromTime;
-  // console.log("start time", startTime)
-  // const endTime = apiContent[0].toTime;
-  // console.log("end time", endTime)
-
-  // let timeSlots = generateTimeSlots(startTime, endTime, timeSlotDuration);
-
-
   //for dividing the time into morning, day, night
-  function timedivision(){
-    let morning=[];
-    let day=[];
-    let night=[];
+  function timedivision() {
+    let morning = [];
+    let day = [];
+    let night = [];
     timeSlots.forEach((slot) => {
       const slotStart = moment(slot.start, 'h:mm A');
       if (slotStart.isBefore(moment('12:00 PM', 'h:mm A'))) {
@@ -374,23 +328,18 @@ const Book_Appointment = () => {
     setdaySlots(day);
     setnightSlots(night);
   }
- 
-  // timedivision();
-
 
   function returntime(e, e1) {
     setselectedStartSlot(e1);
     setselectedEndSlot(e);
   }
-  function newFunc (newD){
+  function newFunc(newD) {
     setselectDay(newD);
-    selDay=newD;
-    // console.log("new day", selDay);
+    selDay = newD;
     console.log("new day selected");
     findStartAndEndTime();
   }
 
- 
   return (
     <ScrollView>
       <View style={{ marginHorizontal: responsiveWidth(4) }}>
@@ -404,7 +353,7 @@ const Book_Appointment = () => {
             {' '}
             Choose Date{' '}
           </Text>
-          <Calendar onSelectDate={setDate} selected={selectedDate} onSelectDay={(d)=>{newFunc(d)}} selectedDay={selectDay}/>
+          <Calendar onSelectDate={setDate} selected={selectedDate} onSelectDay={(d) => { newFunc(d) }} selectedDay={selectDay} />
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
           <Text style={{
@@ -436,26 +385,26 @@ const Book_Appointment = () => {
             />
 
             <View style={{ flexDirection: 'row', flex: 1, flexWrap: 'wrap' }}>
-              {roleData.map((element,index) => {
+              {roleData.map((element, index) => {
                 return (
                   <TouchableOpacity
-                  key={element.id}
-                  onPress={()=> dummyfunc(element.username)}
+                    key={element.id}
+                    onPress={() => dummyfunc(element.username)}
                   >
-                      {element.role === 1 && (
-                        <View style={[{
-                          borderWidth: 1,
-                          borderColor: 'grey',
-                          borderRadius: 40,
-                          marginHorizontal:10,
-                          marginTop: 10,
-                       
-                        },{
-                            backgroundColor:
-                              serviceName === element.username
-                                ? '#175CA4'
-                                : 'white',
-                        }]}>
+                    {element.role === 1 && (
+                      <View style={[{
+                        borderWidth: 1,
+                        borderColor: 'grey',
+                        borderRadius: 40,
+                        marginHorizontal: 10,
+                        marginTop: 10,
+
+                      }, {
+                        backgroundColor:
+                          serviceName === element.username
+                            ? '#175CA4'
+                            : 'white',
+                      }]}>
                         <Text style={[{
                           color: 'black',
                           marginHorizontal: 14,
@@ -468,11 +417,11 @@ const Book_Appointment = () => {
                             serviceName === element.username
                               ? 'white'
                               : 'black',
-                      }]}>
+                        }]}>
                           {element.username}
                         </Text>
-                        </View>
-                      )}
+                      </View>
+                    )}
                   </TouchableOpacity>
                 );
               })}
@@ -490,7 +439,7 @@ const Book_Appointment = () => {
           {' '}
           Select Category{' '}
         </Text>
-<ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View
             style={{
               flexDirection: 'row',
@@ -725,7 +674,7 @@ const Book_Appointment = () => {
             </TouchableOpacity>
           </View>
         </ScrollView>
-       
+
         <View style={{ marginTop: 30 }}>
           <Text
             style={{
@@ -798,8 +747,8 @@ const Book_Appointment = () => {
                           },
                           {
                             backgroundColor:
-                            selectedEndSlot === slot.end &&
-                            selectedStartSlot == slot.start
+                              selectedEndSlot === slot.end &&
+                                selectedStartSlot == slot.start
                                 ? '#175CA4'
                                 : 'white',
                           },
@@ -816,8 +765,8 @@ const Book_Appointment = () => {
                             },
                             {
                               color:
-                              selectedEndSlot === slot.end &&
-                              selectedStartSlot == slot.start
+                                selectedEndSlot === slot.end &&
+                                  selectedStartSlot == slot.start
                                   ? 'white'
                                   : 'black',
                             },
@@ -894,8 +843,8 @@ const Book_Appointment = () => {
                           },
                           {
                             backgroundColor:
-                            selectedEndSlot === slot.end &&
-                            selectedStartSlot == slot.start
+                              selectedEndSlot === slot.end &&
+                                selectedStartSlot == slot.start
                                 ? '#175CA4'
                                 : 'white',
                           },
@@ -912,8 +861,8 @@ const Book_Appointment = () => {
                             },
                             {
                               color:
-                              selectedEndSlot === slot.end &&
-                              selectedStartSlot == slot.start
+                                selectedEndSlot === slot.end &&
+                                  selectedStartSlot == slot.start
                                   ? 'white'
                                   : 'black',
                             },
@@ -986,12 +935,11 @@ const Book_Appointment = () => {
                             borderRadius: 40,
                             marginHorizontal: 10,
                             marginTop: 10,
-                            // backgroundColor:'red'
                           },
                           {
                             backgroundColor:
-                            selectedEndSlot === slot.end &&
-                            selectedStartSlot == slot.start
+                              selectedEndSlot === slot.end &&
+                                selectedStartSlot == slot.start
                                 ? '#175CA4'
                                 : 'white',
                           },
@@ -1008,8 +956,8 @@ const Book_Appointment = () => {
                             },
                             {
                               color:
-                              selectedEndSlot === slot.end &&
-                              selectedStartSlot == slot.start
+                                selectedEndSlot === slot.end &&
+                                  selectedStartSlot == slot.start
                                   ? 'white'
                                   : 'black',
                             },
