@@ -1,34 +1,38 @@
-import React from 'react';
-import { View,StyleSheet } from 'react-native';
-import { TextInput,Text } from 'react-native-paper';
-import { responsiveFontSize, responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
+import React, { useState, useCallback, useEffect } from 'react'
+import { GiftedChat } from 'react-native-gifted-chat'
 
-const Chat = () => {
+export function Chat() {
+  const [messages, setMessages] = useState([])
+
+  useEffect(() => {
+    setMessages([
+      {
+        _id: 1,
+        text: 'Hello developer',
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'React Native',
+          avatar: 'https://placeimg.com/140/140/any',
+        },
+      },
+    ])
+  }, [])
+
+  const onSend = useCallback((messages = []) => {
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, messages),
+    )
+  }, [])
+
   return (
-    <View>
-      <TextInput
-    style={styles.input}
-  mode="outlined"
-  label={
-  <Text>
-       Label
-       <Text style={{color: 'red'}}> *</Text>
-  </Text>
-  }
-/>  
-    </View>
-  );
-};
-const styles = StyleSheet.create({
-input: {
-  padding: responsiveWidth(4),
-  borderColor: 'black',
-  borderWidth: responsiveWidth(0.3),
-  fontSize: responsiveFontSize(2.1),
-  fontFamily: 'Poppins-Regular',
-  marginLeft: responsiveWidth(4),
-  marginRight: responsiveWidth(4),
-  borderRadius: responsiveWidth(3.5),
-},
-})
+    <GiftedChat
+      messages={messages}
+      onSend={messages => onSend(messages)}
+      user={{
+        _id: 1,
+      }}
+    />
+  )
+}
 export default Chat;

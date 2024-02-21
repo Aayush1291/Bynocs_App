@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, ScrollView, Modal, TouchableOpacity } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { TextInput,RadioButton } from 'react-native-paper';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { Calendar } from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -19,7 +19,7 @@ const AssessmentForm = () => {
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
   const [diagnosis, setDiagnosis] = useState("");
   const [history, setHistory] = useState("")
-  const [genderIndex, setGenderIndex] = useState(-1);
+  const [gender, setGender] = useState('');  
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
   const [checked3, setChecked3] = useState(false);
@@ -92,7 +92,6 @@ const AssessmentForm = () => {
     { key: '2', value: 'Eccentric' },
     { key: '3', value: 'Cancel' },
   ]
-  const genderButtons = ['Male', 'Female', 'Other'];
   const obejctiveRefraction = ['Cyclopegic', 'Non-Cycloplegic']
   const Bcva = ['LogMAR', 'Decimal', 'Snellens (feet)', 'Snellens (meters)']
   const today = new Date();
@@ -419,15 +418,17 @@ const AssessmentForm = () => {
         </BottomSheet>
         <View style={styles.horizontalLine} />
         <Text style={styles.heading}>Gender</Text>
-        <ButtonGroup
-          buttons={genderButtons}
-          selectedIndex={genderIndex}
-          onPress={(selectedIndex) => setGenderIndex(selectedIndex)}
-          containerStyle={styles.buttonGroupContainer}
-          selectedButtonStyle={styles.selectedButtonStyle}
-          textStyle={styles.textStyle}
-          innerBorderStyle={styles.innerBorderStyle}
-        />
+
+    <RadioButton.Group onValueChange={newValue => setGender(newValue)} value={gender}>
+      <View>
+        <Text>Male</Text>
+        <RadioButton value="male" />
+      </View>
+      <View>
+        <Text>Female</Text>
+        <RadioButton value="female" />
+      </View>
+    </RadioButton.Group>
         <View style={styles.horizontalLine} />
         <View style={styles.switchContainer}>
           <Switch
